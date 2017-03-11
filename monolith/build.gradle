@@ -1,3 +1,33 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.2.RELEASE'
+    id 'java'
+}
+
+repositories {
+    jcenter()
+}
+
+ext['hibernate.version'] = "5.2.8.Final"
+ext['hikaricp.version'] = "2.6.0"
+ext['groovyVersion'] = "2.4.9"
+
+dependencies {
+
+    runtime (
+            "org.codehaus.groovy:groovy:$groovyVersion"
+    )
+
+    compile(
+            "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework:spring-orm",
+            "org.hibernate:hibernate-core",
+            "com.zaxxer:HikariCP",
+            "com.h2database:h2"
+    )
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
 wrapper {
     gradleVersion = "3.4.1"
 }
