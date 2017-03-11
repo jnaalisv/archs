@@ -1,0 +1,16 @@
+
+subprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext['springVersion'] = "4.3.7.RELEASE"
+ext['h2Version'] = "1.4.193"
+ext['hibernate.version'] =  ext['hibernateVersion'] = "5.2.8.Final"
+ext['hikaricpVersion'] = "2.6.0"
+ext['groovyVersion'] = "2.4.9"
+
+wrapper {
+    gradleVersion = "3.4.1"
+}
