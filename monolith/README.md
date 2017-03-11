@@ -1,5 +1,8 @@
 # Monolith
 Simple monolithic architecture example without hard module boundaries.
+- easy and fast to develop
+- Domain logic can easily creep to controllers
+- RestControllers have unnecessary tight coupling to Hibernate framework, repositories, entities and Spring transaction management.
 
 ## Usage
 1. To run the app
