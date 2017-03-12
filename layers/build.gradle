@@ -5,12 +5,26 @@ subprojects {
     }
 }
 
-ext['springBootVersion'] = "1.5.2.RELEASE"
-ext['springVersion'] = "4.3.7.RELEASE"
-ext['h2Version'] = "1.4.193"
-ext['hibernateVersion'] = "5.2.8.Final"
-ext['hikaricpVersion'] = "2.6.0"
-ext['groovyVersion'] = "2.4.9"
+
+ext {
+    // Logging dependency versions
+    slf4jVersion = "1.7.24"
+    logbackVersion = "1.2.1"
+    groovyVersion = "2.4.9"
+
+    // Spring Framework dependency versions
+    springVersion = "4.3.7.RELEASE"
+    springBootVersion = "1.5.2.RELEASE"
+
+    // Data access dependency versions
+    hibernateVersion = "5.2.8.Final"
+    hikaricpVersion = "2.6.0"
+
+    // Test dependency versions
+    h2Version = "1.4.193"
+    junitVersion = "4.12"
+    assertJVersion = "3.5.2"
+}
 
 wrapper {
     gradleVersion = "3.4.1"

@@ -4,6 +4,8 @@ import layers.application.api.ProductDetail;
 import layers.application.api.ProductService;
 import layers.persistence.model.Product;
 import layers.persistence.model.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,8 @@ import java.util.stream.Collectors;
 @Service
 class ProductServiceImpl implements ProductService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+
     private final ProductRepository productRepository;
 
     public ProductServiceImpl(final ProductRepository productRepository) {
@@ -21,6 +25,7 @@ class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     public List<ProductDetail> getProducts() {
+        logger.debug("getProducts");
         return productRepository
                 .getProducts()
                 .stream()
@@ -30,6 +35,7 @@ class ProductServiceImpl implements ProductService {
 
     @Transactional
     public void add(ProductDetail product) {
+        logger.debug("add");
         productRepository.add(
                 new Product(product.id, product.name)
         );
