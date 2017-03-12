@@ -6,7 +6,6 @@ plugins {
 dependencies {
 
     runtime (
-            project(':shared-resources'),
             logback_runtime,
             "org.flywaydb:flyway-core"
     )
@@ -24,3 +23,18 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs += "$rootDir/shared/logback"
+        }
+    }
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDirs += "$rootDir/shared/test/resources"
+        }
+    }
+}

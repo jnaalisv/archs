@@ -25,9 +25,16 @@ dependencies {
     )
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
-
     testRuntimeOnly "org.flywaydb:flyway-core:$flywayVersion"
-    testRuntimeOnly project(':shared-resources')
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDirs += "$rootDir/shared/test/resources"
+            srcDirs += "$rootDir/shared/logback"
+        }
+    }
 }
 
 ext.migrationDatabase = hasProperty( 'migrationDatabase' ) ? migrationDatabase : 'layers_db'

@@ -1,1 +1,1 @@
-include 'persistence', 'model', 'http', 'shared-resources'
+include 'persistence', 'model', 'http'
