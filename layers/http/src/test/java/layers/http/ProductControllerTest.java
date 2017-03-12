@@ -2,14 +2,15 @@ package layers.http;
 
 import layers.application.api.ProductDetail;
 import layers.application.api.ProductService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 
@@ -19,15 +20,21 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(ProductController.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ProductControllerTest {
 
-    @Autowired
+    @Mock
+    private ProductService productService;
+
+    @InjectMocks
+    private ProductController productController;
+
     private MockMvc mvc;
 
-    @MockBean
-    private ProductService productService;
+    @Before
+    public void setup() {
+        mvc = MockMvcBuilders.standaloneSetup(productController).build();
+    }
 
     @Test
     public void getProductsShouldReturnProducts() throws Exception {
