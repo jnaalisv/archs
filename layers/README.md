@@ -1,12 +1,13 @@
 # Layers, aka multitier, n-tier or layered architecture
-Persistence, domain logic and presentation layers have been physically separated to different modules. Each layer only
-depends on the layer below. Java's visibility modifiers have been used to prevent some implementation detail leak to 
+Persistence infrastructure, domain logic and presentation layers have been physically separated to different modules (*persistence*, 
+*model*, *http*). Each layer only depends on the layer below. Java's visibility modifiers have been used to prevent some implementation detail leak to 
 upper layers.
 - a bit more complicated than monolithic architecture
 - layering helps to separate concerns
 - Implementation details such as framework libraries and all public classes(including entities from persistence) still 
 leak to upper layers as compile time dependencies.
-- Entities are now in *persistence*-subproject, which means domain logic is split in two places.
+- Entities are now in *persistence*-subproject, which means domain logic is split in two places. Either *persistence* 
+and *model* should be merged or domain logic should not reside in ```@Entity```-annotated classes.
 
 ## Update: gradle java-library -plugin to declare api and implementation dependencies
 - dependencies declared in *implementation*-configuration don't leak anymore to consuming projects compile class path. 
