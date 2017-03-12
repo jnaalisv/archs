@@ -29,9 +29,6 @@ sourceSets {
             srcDirs += "$rootDir/shared/logback"
         }
     }
-}
-
-sourceSets {
     test {
         resources {
             srcDirs += "$rootDir/shared/test/resources"
