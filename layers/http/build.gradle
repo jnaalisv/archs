@@ -8,6 +8,7 @@ dependencies {
     runtime (
             project(':shared-resources'),
             logback_runtime,
+            "org.flywaydb:flyway-core"
     )
 
     compile (

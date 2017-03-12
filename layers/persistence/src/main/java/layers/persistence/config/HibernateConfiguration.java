@@ -19,8 +19,8 @@ public class HibernateConfiguration {
 
     private static Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        hibernateProperties.put("hibernate.hbm2ddl.auto","create");
+        hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
+        hibernateProperties.put("hibernate.hbm2ddl.auto","none"); // can't use validate now because it runs before flyway
         hibernateProperties.put("hibernate.format_sql", "true");
         return hibernateProperties;
     }

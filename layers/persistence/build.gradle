@@ -1,5 +1,12 @@
+buildscript {
+    dependencies {
+        classpath "org.postgresql:postgresql:$postgreSqlVersion"
+    }
+}
+
 plugins {
     id 'java-library'
+    id "org.flywaydb.flyway" version "4.1.2"
 }
 
 dependencies {
@@ -13,11 +20,24 @@ dependencies {
     )
 
     runtimeOnly (
-            "com.h2database:h2:$h2Version",
+            "org.postgresql:postgresql:$postgreSqlVersion",
             logback_runtime
     )
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
 
+    testRuntimeOnly "org.flywaydb:flyway-core:$flywayVersion"
     testRuntimeOnly project(':shared-resources')
+}
+
+ext.migrationDatabase = hasProperty( 'migrationDatabase' ) ? migrationDatabase : 'layers_db'
+ext.migrationHost = hasProperty( 'migrationHost' ) ? migrationHost : 'localhost'
+ext.migrationPort = hasProperty( 'migrationPort' ) ? migrationPort : '5432'
+
+flyway {
+    baselineOnMigrate=false
+    baselineVersion=999
+    url = 'jdbc:postgresql://' + migrationHost + ':'+ migrationPort + '/' + migrationDatabase
+    user = 'layers_user'
+    password = 'layers_user'
 }

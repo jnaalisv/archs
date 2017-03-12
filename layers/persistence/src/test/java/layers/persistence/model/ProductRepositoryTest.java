@@ -5,14 +5,19 @@ import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@TestPropertySource("classpath:datasource-test.properties")
 @ContextConfiguration(classes = {HibernateConfiguration.class})
+@Import(FlywayAutoConfiguration.class)
 @RunWith(SpringRunner.class)
 public class ProductRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
 
@@ -22,6 +27,7 @@ public class ProductRepositoryTest extends AbstractTransactionalJUnit4SpringCont
     @Autowired
     private ProductRepository productRepository;
 
+    @Sql({"classpath:clear-database.sql"})
     @Test
     public void shouldAddProduct() {
 
@@ -35,7 +41,9 @@ public class ProductRepositoryTest extends AbstractTransactionalJUnit4SpringCont
         assertThat(countRowsInTableWhere("product", null)).isEqualTo(2);
     }
 
-    @Sql(statements = {
+    @Sql(scripts = {
+            "classpath:clear-database.sql"
+    }, statements = {
         "insert into product(id, name) values (1, 'Cool Beans'),(2, 'Java Beans');"
     })
     @Test
