@@ -5,6 +5,7 @@ subprojects {
     }
 }
 
+ext['springBootVersion'] = "1.5.2.RELEASE"
 ext['springVersion'] = "4.3.7.RELEASE"
 ext['h2Version'] = "1.4.193"
 ext['hibernateVersion'] = "5.2.8.Final"
