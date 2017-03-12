@@ -1,0 +1,39 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.2.RELEASE'
+    id 'java'
+}
+
+dependencies {
+
+    runtime (
+            logback_runtime,
+            "org.flywaydb:flyway-core",
+            project(":persistence")
+    )
+
+    compile (
+            project(":model"),
+            "org.slf4j:slf4j-api",
+            "org.springframework.boot:spring-boot",
+            "org.springframework.boot:spring-boot-autoconfigure",
+            "org.eclipse.jetty:jetty-servlets",
+            "org.eclipse.jetty:jetty-webapp",
+            "com.fasterxml.jackson.core:jackson-databind",
+            "org.springframework:spring-webmvc"
+    )
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += "$rootDir/shared/logback"
+        }
+    }
+    test {
+        resources {
+            srcDirs += "$rootDir/shared/test/resources"
+        }
+    }
+}
