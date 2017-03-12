@@ -24,6 +24,14 @@ ext {
     h2Version = "1.4.193"
     junitVersion = "4.12"
     assertJVersion = "3.5.2"
+
+    logback_runtime = [
+            "org.slf4j:jcl-over-slf4j:$slf4jVersion",
+            "org.slf4j:log4j-over-slf4j:$slf4jVersion",
+            "org.slf4j:jul-to-slf4j:$slf4jVersion",
+            "org.codehaus.groovy:groovy:$groovyVersion",
+            "ch.qos.logback:logback-classic:$logbackVersion"
+    ]
 }
 
 wrapper {
