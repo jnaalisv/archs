@@ -1,4 +1,4 @@
-package layers.http;
+package layers.http.resources;
 
 import layers.application.api.ProductDetail;
 import layers.application.api.ProductService;

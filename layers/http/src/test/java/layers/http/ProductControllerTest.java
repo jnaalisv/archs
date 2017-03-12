@@ -2,6 +2,7 @@ package layers.http;
 
 import layers.application.api.ProductDetail;
 import layers.application.api.ProductService;
+import layers.http.resources.ProductController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
