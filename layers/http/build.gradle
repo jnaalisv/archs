@@ -7,7 +7,8 @@ dependencies {
 
     runtime (
             "org.codehaus.groovy:groovy:$groovyVersion",
-            project(':shared-resources')
+            project(':shared-resources'),
+            "org.hibernate:hibernate-core:$hibernateVersion",
     )
 
     compile (
