@@ -7,7 +7,6 @@ dependencies {
 
     runtime (
             project(':shared-resources'),
-            "org.hibernate:hibernate-core:$hibernateVersion",
             logback_runtime,
     )
 

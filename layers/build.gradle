@@ -34,6 +34,9 @@ ext {
     ]
 }
 
+ext['hibernate.version'] = hibernateVersion;
+ext['hikaricp.version'] = hikaricpVersion;
+
 wrapper {
     gradleVersion = "3.4.1"
 }
