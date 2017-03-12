@@ -15,7 +15,8 @@ dependencies {
             "org.slf4j:slf4j-api",
             "org.springframework.boot:spring-boot",
             "org.springframework.boot:spring-boot-autoconfigure",
-            "org.springframework.boot:spring-boot-starter-jetty",
+            "org.eclipse.jetty:jetty-servlets",
+            "org.eclipse.jetty:jetty-webapp",
             "com.fasterxml.jackson.core:jackson-databind",
             "org.springframework:spring-webmvc"
     )
