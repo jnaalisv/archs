@@ -13,6 +13,10 @@ and *model* should be merged or domain logic should not reside in ```@Entity```-
 - dependencies declared in *implementation*-configuration don't leak anymore to consuming projects compile class path. 
 This affects both third party libraries(hibernate-core, spring-orm) as well as subprojects(persistence)
 
+## 2nd update: spring-boot dependency management magic
+- it seems that ```org.springframework.boot```-plugin pulls in missing dependencies, in this case hibernate-core which 
+is required in the application runtime classpath. Better to pull them in explicitly.
+
 ## Usage
 1. To run the app
 ```bash
