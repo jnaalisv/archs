@@ -21,9 +21,7 @@ These will override original versions.
 #### spring-boot-starter-test pulls in hibernate-core and other dependencies
 
 ## Todo
-- remove usage of spring-boot-starter-tests from libraries
-- investigate if hibernate validate on init can be used with flyway
-- share config of test database (currently duplicated)
+
 
 ## Usage
 1. To run the app

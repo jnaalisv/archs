@@ -2,6 +2,7 @@ package layers.persistence.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,5 +32,14 @@ public class DatasourceConfiguration {
         props.setProperty("dataSource.password", dbPassword);
         props.setProperty("dataSource.databaseName", dbName);
         return new HikariDataSource(new HikariConfig(props));
+    }
+
+    @Bean(initMethod = "migrate")
+    public Flyway flyway(DataSource dataSource) {
+        Flyway flyway = new Flyway();
+        flyway.setBaselineOnMigrate(false);
+        flyway.setLocations("classpath:/db/migration/");
+        flyway.setDataSource(dataSource);
+        return flyway;
     }
 }
