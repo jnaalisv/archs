@@ -6,7 +6,8 @@ plugins {
 dependencies {
 
     runtime (
-            "org.codehaus.groovy:groovy:$groovyVersion"
+            "org.codehaus.groovy:groovy:$groovyVersion",
+            project(':shared-resources')
     )
 
     compile (
