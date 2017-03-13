@@ -16,6 +16,13 @@ on hibernate dirty tracking semantics.
     3. jpa-api could be removed and no hibernate state transition tracking semantics assumed. But then persistence
     layer would have to declare entity classes and translate them to domain objects.
     4. Framework dependencies are a convenience trade off
+    
+#### What next?
+- assume the framework dependencies are a necesary evil
+- solve the port confusion problem or evolve this project into a more traditional layered approach while keeping some of 
+the good stuff. Since jpa-api implies hibernate, the secondary persistence adapter could be rolled into model
+1. Fix the port confusion with better architecture
+2. Develop the layered approach further
 
 ## Usage
 1. To run the app
