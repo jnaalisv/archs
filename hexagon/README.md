@@ -5,8 +5,17 @@ api), and out of the core through secondary ports such as repository interfaces 
 ### Notes
 - How to separate primary and secondary ports? Currently the module's public api forms both, which means
 that primary adapters have access to secondary ports too.
-- model has a framework dependencies (spring-tx, spring-context) and usage of ```javax.persistence```-api implies 
-hibernate which could lead todependency on hibernate dirty tracking semantics.
+
+#### Model has a framework dependencies 
+(spring-tx, spring-context) and usage of ```javax.persistence```-api implies hibernate which could lead to dependency 
+on hibernate dirty tracking semantics.
+
+#### The framework dependencies could be refactored away
+    1. spring-tx could be replaced by a secondary port (service interface) offering tx management
+    2. spring-context and usage of component-scan could be replaced by explicit bean declarations in api-package.
+    3. jpa-api could be removed and no hibernate state transition tracking semantics assumed. But then persistence
+    layer would have to declare entity classes and translate them to domain objects.
+    4. Framework dependencies are a convenience trade off
 
 ## Usage
 1. To run the app
