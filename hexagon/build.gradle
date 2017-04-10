@@ -54,5 +54,5 @@ ext['hikaricp.version'] = hikaricpVersion;
 ext['flyway.version'] = flywayVersion;
 
 wrapper {
-    gradleVersion = "3.4.1"
+    gradleVersion = "3.5"
 }
