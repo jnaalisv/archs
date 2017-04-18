@@ -29,7 +29,7 @@ ext {
     springBootVersion = "1.5.2.RELEASE"
 
     // Data access dependency versions
-    hibernateVersion = "5.2.9.Final"
+    hibernateVersion = "5.2.10.Final"
     hikaricpVersion = "2.6.1"
     postgreSqlVersion = "42.0.0"
 
