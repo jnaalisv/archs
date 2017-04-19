@@ -25,7 +25,7 @@ ext {
     groovyVersion = "2.4.9"
 
     // Spring Framework dependency versions
-    springVersion = "4.3.7.RELEASE"
+    springVersion = "4.3.8.RELEASE"
     springBootVersion = "1.5.2.RELEASE"
 
     // Data access dependency versions
