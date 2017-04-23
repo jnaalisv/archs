@@ -1,6 +1,7 @@
 package layers.http;
 
 import layers.application.api.ApplicationConfiguration;
+import layers.persistence.config.HibernateConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 @SpringBootConfiguration
-@Import(ApplicationConfiguration.class)
+@Import({HibernateConfiguration.class, ApplicationConfiguration.class})
 @EnableAutoConfiguration(exclude= {HibernateJpaAutoConfiguration.class})
 @ComponentScan("layers.http")
 public class LayersApplication {
