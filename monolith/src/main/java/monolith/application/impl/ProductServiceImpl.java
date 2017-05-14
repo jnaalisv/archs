@@ -1,6 +1,6 @@
-package monolith.service.impl;
+package monolith.application.impl;
 
-import monolith.service.ProductService;
+import monolith.application.ProductService;
 import monolith.model.products.Product;
 import monolith.model.products.ProductRepository;
 import org.springframework.stereotype.Service;

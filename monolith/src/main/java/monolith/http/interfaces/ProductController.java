@@ -1,6 +1,6 @@
 package monolith.http.interfaces;
 
-import monolith.service.ProductService;
+import monolith.application.ProductService;
 import monolith.model.products.Product;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

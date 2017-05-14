@@ -1,4 +1,4 @@
-package monolith.service;
+package monolith.application;
 
 import monolith.model.products.Product;
 

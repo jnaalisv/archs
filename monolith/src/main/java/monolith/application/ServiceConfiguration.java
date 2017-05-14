@@ -1,4 +1,4 @@
-package monolith.service;
+package monolith.application;
 
 import monolith.persistence.PersistenceConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @Import(PersistenceConfiguration.class)
 @EnableTransactionManagement
-@ComponentScan("monolith.service.impl")
+@ComponentScan("monolith.application.impl")
 public class ServiceConfiguration {
 
 }
