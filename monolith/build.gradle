@@ -7,7 +7,7 @@ repositories {
     jcenter()
 }
 
-ext['hibernate.version'] = "5.2.8.Final"
+ext['hibernate.version'] = "5.2.10.Final"
 ext['hikaricp.version'] = "2.6.1"
 ext['groovyVersion'] = "2.4.9"
 
