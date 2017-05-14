@@ -1,6 +1,7 @@
 package monolith.model;
 
-import monolith.persistence.HibernateProductRepository;
+import monolith.model.products.Product;
+import monolith.model.products.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,19 +10,19 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    private final HibernateProductRepository hibernateProductRepository;
+    private final ProductRepository productRepository;
 
-    public ProductService(final HibernateProductRepository hibernateProductRepository) {
-        this.hibernateProductRepository = hibernateProductRepository;
+    public ProductService(final ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @Transactional(readOnly = true)
     public List<Product> getProducts() {
-        return hibernateProductRepository.getProducts();
+        return productRepository.getProducts();
     }
 
     @Transactional
     public void add(Product product) {
-        hibernateProductRepository.add(product);
+        productRepository.add(product);
     }
 }

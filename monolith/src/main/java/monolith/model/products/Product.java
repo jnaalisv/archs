@@ -1,4 +1,4 @@
-package monolith.model;
+package monolith.model.products;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
