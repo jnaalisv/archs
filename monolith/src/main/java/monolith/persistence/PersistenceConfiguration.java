@@ -15,7 +15,7 @@ import java.util.Properties;
 @Configuration
 @Import(DatasourceConfiguration.class)
 @ComponentScan("monolith.persistence.hibernate")
-public class HibernateConfiguration {
+public class PersistenceConfiguration {
 
     private static Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
