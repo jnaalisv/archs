@@ -1,7 +1,7 @@
 package layers.http;
 
-import layers.application.api.ProductDetail;
-import layers.application.api.ProductService;
+import layers.application.ProductDetail;
+import layers.application.ProductService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
