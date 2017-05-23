@@ -1,4 +1,4 @@
-package layers.application.api;
+package layers.application;
 
 import layers.persistence.config.HibernateConfiguration;
 import org.springframework.context.annotation.ComponentScan;

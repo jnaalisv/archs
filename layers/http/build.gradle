@@ -11,7 +11,7 @@ dependencies {
     )
 
     compile (
-            project(":model"),
+            project(":application"),
             "org.slf4j:slf4j-api",
             "org.springframework.boot:spring-boot",
             "org.springframework.boot:spring-boot-autoconfigure",

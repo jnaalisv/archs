@@ -1,7 +1,7 @@
 package layers.http;
 
-import layers.application.api.ProductDetail;
-import layers.application.api.ProductService;
+import layers.application.ProductDetail;
+import layers.application.ProductService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

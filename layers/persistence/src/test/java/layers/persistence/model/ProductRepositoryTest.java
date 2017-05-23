@@ -1,5 +1,7 @@
 package layers.persistence.model;
 
+import layers.model.Product;
+import layers.model.ProductRepository;
 import layers.persistence.config.HibernateConfiguration;
 import org.hibernate.SessionFactory;
 import org.junit.Test;

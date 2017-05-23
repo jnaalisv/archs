@@ -1,4 +1,4 @@
-package layers.persistence.model;
+package layers.model;
 
 import java.util.List;
 

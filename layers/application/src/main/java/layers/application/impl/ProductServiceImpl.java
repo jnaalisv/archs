@@ -1,9 +1,9 @@
 package layers.application.impl;
 
-import layers.application.api.ProductDetail;
-import layers.application.api.ProductService;
-import layers.persistence.model.Product;
-import layers.persistence.model.ProductRepository;
+import layers.application.ProductDetail;
+import layers.application.ProductService;
+import layers.model.Product;
+import layers.model.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package layers.application.api;
+package layers.application;
 
 public class ProductDetail {
     public long id;
