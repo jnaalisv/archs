@@ -1,5 +1,8 @@
 package layers.application.api;
 
+import layers.application.ApplicationConfiguration;
+import layers.application.ProductDetail;
+import layers.application.ProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
