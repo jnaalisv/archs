@@ -1,0 +1,15 @@
+apply from: "$rootDir/gradle/versions.gradle"
+
+ext {
+    logback_runtime = [
+            "org.slf4j:jcl-over-slf4j:$slf4jVersion",
+            "org.slf4j:log4j-over-slf4j:$slf4jVersion",
+            "org.slf4j:jul-to-slf4j:$slf4jVersion",
+            "org.codehaus.groovy:groovy:$groovyVersion",
+            "ch.qos.logback:logback-classic:$logbackVersion"
+    ]
+}
+
+ext['hibernate.version'] = hibernateVersion;
+ext['hikaricp.version'] = hikaricpVersion;
+ext['flyway.version'] = flywayVersion;
