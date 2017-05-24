@@ -4,10 +4,6 @@ Persistence infrastructure, domain logic and presentation layers have been physi
 upper layers.
 - a bit more complicated than monolithic architecture
 - layering helps to separate concerns
-- Implementation details such as framework libraries and all public classes(including entities from persistence) still 
-leak to upper layers as compile time dependencies.
-- Entities are now in *persistence*-subproject, which means domain logic is split in two places. Either *persistence* 
-and *model* should be merged or domain logic should not reside in ```@Entity```-annotated classes.
 
 ## Notes
 #### Upgraded to gradle java-library -plugin to declare api and implementation dependencies
