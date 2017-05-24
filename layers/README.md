@@ -4,6 +4,8 @@ Persistence infrastructure, domain logic and presentation layers have been physi
 upper layers.
 - a bit more complicated than monolithic architecture
 - layering helps to separate concerns
+- Implementation details such as framework libraries and package private classes don't leak to consuming projects due to
+usage of 'api and implementation separation' provided by java-library -plugin
 
 ## Notes
 #### Upgraded to gradle java-library -plugin to declare api and implementation dependencies
