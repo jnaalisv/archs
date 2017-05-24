@@ -1,6 +1,6 @@
 package layers.application;
 
-import layers.persistence.config.HibernateConfiguration;
+import layers.persistence.config.PersistenceConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@Import(HibernateConfiguration.class)
+@Import(PersistenceConfiguration.class)
 @ComponentScan("layers.application.impl")
 public class ApplicationConfiguration {
 }

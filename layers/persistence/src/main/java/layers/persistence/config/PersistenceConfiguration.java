@@ -16,7 +16,7 @@ import java.util.Properties;
 @Configuration
 @Import(DatasourceConfiguration.class)
 @ComponentScan("layers.persistence.impl")
-public class HibernateConfiguration {
+public class PersistenceConfiguration {
 
     private static Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();

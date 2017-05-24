@@ -2,7 +2,7 @@ package layers.persistence.model;
 
 import layers.model.Product;
 import layers.model.ProductRepository;
-import layers.persistence.config.HibernateConfiguration;
+import layers.persistence.config.PersistenceConfiguration;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @TestPropertySource("classpath:datasource-test.properties")
-@ContextConfiguration(classes = {HibernateConfiguration.class})
+@ContextConfiguration(classes = {PersistenceConfiguration.class})
 @RunWith(SpringRunner.class)
 public class ProductRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
 
