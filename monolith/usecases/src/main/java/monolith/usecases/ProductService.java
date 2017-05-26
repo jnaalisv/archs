@@ -1,4 +1,4 @@
-package monolith.application;
+package monolith.usecases;
 
 import java.util.List;
 

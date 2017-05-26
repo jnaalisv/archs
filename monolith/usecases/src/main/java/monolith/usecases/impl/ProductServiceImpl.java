@@ -1,9 +1,9 @@
-package monolith.application.impl;
+package monolith.usecases.impl;
 
-import monolith.application.ProductDetail;
-import monolith.application.ProductService;
 import monolith.model.products.Product;
 import monolith.model.products.ProductRepository;
+import monolith.usecases.ProductDetail;
+import monolith.usecases.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

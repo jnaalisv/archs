@@ -1,4 +1,4 @@
-package monolith.application;
+package monolith.usecases;
 
 public class ProductDetail {
     public long id;

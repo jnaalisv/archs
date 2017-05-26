@@ -1,7 +1,7 @@
 package monolith.http.interfaces;
 
-import monolith.application.ProductDetail;
-import monolith.application.ProductService;
+import monolith.usecases.ProductDetail;
+import monolith.usecases.ProductService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

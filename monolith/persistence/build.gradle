@@ -33,15 +33,6 @@ dependencies {
     )
 }
 
-sourceSets {
-    test {
-        resources {
-            srcDirs += "$rootDir/shared/test/resources"
-            srcDirs += "$rootDir/shared/logback"
-        }
-    }
-}
-
 ext.migrationDatabase = hasProperty( 'migrationDatabase' ) ? migrationDatabase : 'monolith_db'
 ext.migrationHost = hasProperty( 'migrationHost' ) ? migrationHost : 'localhost'
 ext.migrationPort = hasProperty( 'migrationPort' ) ? migrationPort : '5432'

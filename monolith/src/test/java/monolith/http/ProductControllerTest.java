@@ -1,7 +1,7 @@
 package monolith.http;
 
-import monolith.application.ProductDetail;
-import monolith.application.ProductService;
+import monolith.usecases.ProductDetail;
+import monolith.usecases.ProductService;
 import monolith.http.interfaces.ProductController;
 import org.junit.Before;
 import org.junit.Test;

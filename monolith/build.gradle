@@ -7,6 +7,15 @@ allprojects {
     repositories {
         jcenter()
     }
+
+    sourceSets {
+        test {
+            resources {
+                srcDirs += "$rootDir/shared/test/resources"
+                srcDirs += "$rootDir/shared/logback"
+            }
+        }
+    }
 }
 
 ext {
@@ -49,10 +58,8 @@ dependencies {
     runtime "org.codehaus.groovy:groovy:$groovyVersion",
             "org.postgresql:postgresql:$postgreSqlVersion"
 
-    compile project(':model'),
-            project(':persistence'),
-            "org.springframework.boot:spring-boot-starter-web",
-            "org.springframework:spring-tx"
+    compile project(':usecases'),
+            "org.springframework.boot:spring-boot-starter-web"
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
