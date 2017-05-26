@@ -13,9 +13,12 @@ public class Product {
 
     private String name;
 
-    public Product() {
-
+    public Product(long id, String name) {
+        this.id = id;
+        this.name = name;
     }
+
+    public Product() {}
 
     public String getName() {
         return name;
