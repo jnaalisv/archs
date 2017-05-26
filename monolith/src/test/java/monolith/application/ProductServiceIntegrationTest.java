@@ -1,8 +1,5 @@
 package monolith.application;
 
-import monolith.application.ProductDetail;
-import monolith.application.ProductService;
-import monolith.http.MonolithHttpApiApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @TestPropertySource("classpath:datasource-test.properties")
-@ContextConfiguration(classes = {MonolithHttpApiApplication.class})
+@ContextConfiguration(classes = {ServiceConfiguration.class})
 @RunWith(SpringRunner.class)
 public class ProductServiceIntegrationTest {
 

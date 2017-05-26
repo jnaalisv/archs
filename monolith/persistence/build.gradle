@@ -1,0 +1,55 @@
+buildscript {
+    dependencies {
+        classpath "org.postgresql:postgresql:$postgreSqlVersion"
+    }
+}
+
+plugins {
+    id 'java-library'
+    id 'org.flywaydb.flyway' version '4.2.0'
+}
+
+dependencies {
+
+    implementation (
+            project(":model"),
+            "org.slf4j:slf4j-api:$slf4jVersion",
+            "org.springframework:spring-context:$springVersion",
+            "org.springframework:spring-orm:$springVersion",
+            "org.hibernate:hibernate-core:$hibernateVersion",
+            "com.zaxxer:HikariCP:$hikaricpVersion",
+            "org.flywaydb:flyway-core:$flywayVersion"
+    )
+
+    runtimeOnly (
+            "org.postgresql:postgresql:$postgreSqlVersion",
+            logback_runtime
+    )
+
+    testImplementation (
+            "junit:junit:$junitVersion",
+            "org.assertj:assertj-core:$assertJVersion",
+            "org.springframework:spring-test:$springVersion"
+    )
+}
+
+sourceSets {
+    test {
+        resources {
+            srcDirs += "$rootDir/shared/test/resources"
+            srcDirs += "$rootDir/shared/logback"
+        }
+    }
+}
+
+ext.migrationDatabase = hasProperty( 'migrationDatabase' ) ? migrationDatabase : 'monolith_db'
+ext.migrationHost = hasProperty( 'migrationHost' ) ? migrationHost : 'localhost'
+ext.migrationPort = hasProperty( 'migrationPort' ) ? migrationPort : '5432'
+
+flyway {
+    baselineOnMigrate=false
+    baselineVersion=999
+    url = 'jdbc:postgresql://' + migrationHost + ':'+ migrationPort + '/' + migrationDatabase
+    user = 'monolith_user'
+    password = 'monolith_user'
+}
