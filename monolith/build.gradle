@@ -4,8 +4,13 @@ plugins {
     id 'org.flywaydb.flyway' version '4.2.0'
 }
 
-repositories {
-    jcenter()
+allprojects {
+    repositories {
+        jcenter()
+    }
+
+    ext['assertJVersion'] = "3.8.0"
+    ext['assertj.version'] = "3.8.0"
 }
 
 ext['hibernate.version'] = "5.2.10.Final"
@@ -13,6 +18,9 @@ ext['hikaricp.version'] = "2.6.2"
 ext['groovyVersion'] = "2.4.9"
 ext['postgreSqlVersion'] = "42.1.1"
 ext['flywayVersion'] = "4.2.0"
+ext['junitVersion'] = "4.12"
+ext['assertJVersion'] = "3.8.0"
+ext['assertj.version'] = "3.8.0"
 
 dependencies {
 
@@ -22,6 +30,7 @@ dependencies {
     )
 
     compile(
+            project(':model'),
             "org.springframework.boot:spring-boot-starter-web",
             "org.springframework:spring-orm",
             "org.hibernate:hibernate-core",
