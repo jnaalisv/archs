@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '1.5.2.RELEASE'
     id 'java'
+    id 'org.flywaydb.flyway' version '4.2.0'
 }
 
 repositories {
@@ -10,11 +11,14 @@ repositories {
 ext['hibernate.version'] = "5.2.10.Final"
 ext['hikaricp.version'] = "2.6.2"
 ext['groovyVersion'] = "2.4.9"
+ext['postgreSqlVersion'] = "42.1.1"
+ext['flywayVersion'] = "4.2.0"
 
 dependencies {
 
     runtime (
-            "org.codehaus.groovy:groovy:$groovyVersion"
+            "org.codehaus.groovy:groovy:$groovyVersion",
+            "org.postgresql:postgresql:$postgreSqlVersion"
     )
 
     compile(
@@ -22,7 +26,7 @@ dependencies {
             "org.springframework:spring-orm",
             "org.hibernate:hibernate-core",
             "com.zaxxer:HikariCP",
-            "com.h2database:h2"
+            "org.flywaydb:flyway-core:$flywayVersion"
     )
 
     testCompile("org.springframework.boot:spring-boot-starter-test")

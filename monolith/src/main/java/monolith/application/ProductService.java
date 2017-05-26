@@ -1,12 +1,10 @@
 package monolith.application;
 
-import monolith.model.products.Product;
-
 import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getProducts();
+    List<ProductDetail> getProducts();
 
-    void add(Product product);
+    void add(ProductDetail product);
 }

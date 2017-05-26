@@ -1,5 +1,6 @@
 package monolith.http.interfaces;
 
+import monolith.application.ProductDetail;
 import monolith.application.ProductService;
 import monolith.model.products.Product;
 import org.springframework.http.HttpHeaders;
@@ -25,12 +26,12 @@ public class ProductController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Product> getProducts() {
+    public List<ProductDetail> getProducts() {
         return productService.getProducts();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Product> save(@RequestBody Product product) {
+    public ResponseEntity<ProductDetail> save(@RequestBody ProductDetail product) {
 
         productService.add(product);
 

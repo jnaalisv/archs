@@ -1,15 +1,21 @@
 package monolith.application.impl;
 
+import monolith.application.ProductDetail;
 import monolith.application.ProductService;
 import monolith.model.products.Product;
 import monolith.model.products.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 class ProductServiceImpl implements ProductService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     private final ProductRepository productRepository;
 
@@ -17,15 +23,21 @@ class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
-    @Override
     @Transactional(readOnly = true)
-    public List<Product> getProducts() {
-        return productRepository.getProducts();
+    public List<ProductDetail> getProducts() {
+        logger.debug("getProducts");
+        return productRepository
+                .getProducts()
+                .stream()
+                .map(product -> new ProductDetail(product.getId(), product.getName()))
+                .collect(Collectors.toList());
     }
 
-    @Override
     @Transactional
-    public void add(Product product) {
-        productRepository.add(product);
+    public void add(ProductDetail product) {
+        logger.debug("add");
+        productRepository.add(
+                new Product(product.id, product.name)
+        );
     }
 }
