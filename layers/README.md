@@ -1,6 +1,6 @@
 # Layers, aka multitier, n-tier or layered architecture
-Persistence infrastructure, domain logic and presentation layers have been physically separated to different modules (*persistence*, 
-*model*, *http*). Each layer only depends on the layer below. Java's visibility modifiers have been used to prevent some implementation detail leak to 
+Persistence infrastructure, domain logic and service layers have been physically separated to different modules (*persistence*, 
+*model*, *services*). Each layer only depends on the layer below. Java's visibility modifiers have been used to prevent some implementation detail leak to 
 upper layers.
 - a bit more complicated than monolithic architecture
 - layering helps to separate concerns
