@@ -1,5 +1,6 @@
 package monolith.usecases;
 
+import monolith.persistence.PersistenceConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @TestPropertySource("classpath:datasource-test.properties")
-@ContextConfiguration(classes = {UseCasesConfiguration.class})
+@ContextConfiguration(classes = {PersistenceConfiguration.class, UseCasesConfiguration.class})
 @RunWith(SpringRunner.class)
 public class ProductServiceIntegrationTest {
 
