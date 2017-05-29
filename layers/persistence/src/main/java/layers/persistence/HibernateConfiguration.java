@@ -21,6 +21,11 @@ public class HibernateConfiguration {
         hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL95Dialect");
         hibernateProperties.put("hibernate.hbm2ddl.auto","validate");
         hibernateProperties.put("hibernate.format_sql", "true");
+        hibernateProperties.put("hibernate.generate_statistics", "true");
+        hibernateProperties.put("hibernate.jdbc.batch_size", 30);
+        hibernateProperties.put("hibernate.order_updates", "true");
+        hibernateProperties.put("hibernate.order_inserts", "true");
+        hibernateProperties.put("hibernate.jdbc.batch_versioned_data", "true");
         return hibernateProperties;
     }
 
