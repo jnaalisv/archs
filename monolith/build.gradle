@@ -7,15 +7,6 @@ allprojects {
     repositories {
         jcenter()
     }
-
-    sourceSets {
-        test {
-            resources {
-                srcDirs += "$rootDir/shared/test/resources"
-                srcDirs += "$rootDir/shared/logback"
-            }
-        }
-    }
 }
 
 ext {

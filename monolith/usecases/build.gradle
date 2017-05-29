@@ -13,3 +13,12 @@ dependencies {
             "org.assertj:assertj-core:$assertJVersion",
             "org.springframework:spring-test:$springVersion"
 }
+
+sourceSets {
+    test {
+        resources {
+            srcDirs += "$rootDir/shared/test/resources"
+            srcDirs += "$rootDir/shared/logback"
+        }
+    }
+}
