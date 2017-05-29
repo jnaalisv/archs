@@ -4,17 +4,13 @@ plugins {
 
 dependencies {
 
-    implementation (
-            "org.slf4j:slf4j-api:$slf4jVersion",
+    implementation "org.slf4j:slf4j-api:$slf4jVersion",
             "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
-    )
 
     runtimeOnly logback_runtime
 
-    testImplementation (
-            "junit:junit:$junitVersion",
+    testImplementation "junit:junit:$junitVersion",
             "org.assertj:assertj-core:$assertJVersion"
-    )
 }
 
 sourceSets {

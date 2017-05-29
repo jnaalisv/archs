@@ -1,1 +1,1 @@
-include 'persistence', 'model', 'application', 'http'
+include 'model', 'persistence', 'services'

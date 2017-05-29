@@ -10,27 +10,20 @@ plugins {
 }
 
 dependencies {
+    runtimeOnly"org.postgresql:postgresql:$postgreSqlVersion",
+            logback_runtime
 
-    implementation (
-            project(":model"),
+    implementation project(":model"),
             "org.slf4j:slf4j-api:$slf4jVersion",
             "org.springframework:spring-context:$springVersion",
             "org.springframework:spring-orm:$springVersion",
             "org.hibernate:hibernate-core:$hibernateVersion",
             "com.zaxxer:HikariCP:$hikaricpVersion",
             "org.flywaydb:flyway-core:$flywayVersion"
-    )
 
-    runtimeOnly (
-            "org.postgresql:postgresql:$postgreSqlVersion",
-            logback_runtime
-    )
-
-    testImplementation (
-            "junit:junit:$junitVersion",
+    testImplementation "junit:junit:$junitVersion",
             "org.assertj:assertj-core:$assertJVersion",
             "org.springframework:spring-test:$springVersion"
-    )
 }
 
 sourceSets {

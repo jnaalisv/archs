@@ -3,13 +3,12 @@ plugins {
 }
 
 dependencies {
+    runtimeOnly logback_runtime
 
     implementation project(":model"),
             "org.slf4j:slf4j-api:$slf4jVersion",
             "org.springframework:spring-context:$springVersion",
             "org.springframework:spring-tx:$springVersion"
-
-    runtimeOnly logback_runtime
 
     testImplementation project(":persistence"),
             "junit:junit:$junitVersion",
@@ -21,6 +20,7 @@ sourceSets {
     test {
         resources {
             srcDirs += "$rootDir/shared/test/resources"
+            srcDirs += "$rootDir/shared/logback"
         }
     }
 }
