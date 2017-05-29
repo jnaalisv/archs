@@ -1,7 +1,7 @@
 package layers.services.impl;
 
-import layers.model.Product;
-import layers.model.ProductRepository;
+import layers.model.products.Product;
+import layers.model.products.ProductRepository;
 import layers.services.ProductDetail;
 import layers.services.ProductService;
 import org.slf4j.Logger;

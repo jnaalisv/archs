@@ -1,7 +1,7 @@
 package layers.persistence.hibernate;
 
-import layers.model.Product;
-import layers.model.ProductRepository;
+import layers.model.products.Product;
+import layers.model.products.ProductRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;

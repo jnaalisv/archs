@@ -1,4 +1,4 @@
-package layers.model;
+package layers.model.products;
 
 import java.util.List;
 

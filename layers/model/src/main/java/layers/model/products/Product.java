@@ -1,8 +1,11 @@
-package layers.model;
+package layers.model.products;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Version;
+import java.time.LocalDateTime;
 
 @Entity
 public class Product {
@@ -12,6 +15,12 @@ public class Product {
     private long id;
 
     private String name;
+
+    @Column(insertable = false, updatable = false)
+    private LocalDateTime createTime;
+
+    @Version
+    private long version;
 
     public Product(long id, String name) {
         this.id = id;
@@ -26,5 +35,13 @@ public class Product {
 
     public long getId() {
         return id;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public long getVersion() {
+        return version;
     }
 }
