@@ -1,6 +1,5 @@
 package monolith.persistence;
 
-import monolith.persistence.DatasourceConfiguration;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
