@@ -8,7 +8,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 public class SerializationConfiguration {
     @Bean
-    public ObjectMapper objectMapper() {
+    public static ObjectMapper objectMapper() {
         return new Jackson2ObjectMapperBuilder()
                 .featuresToDisable()
                 .featuresToEnable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)

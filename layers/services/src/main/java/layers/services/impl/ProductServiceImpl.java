@@ -29,7 +29,7 @@ class ProductServiceImpl implements ProductService {
         return productRepository
                 .getProducts()
                 .stream()
-                .map(product -> new ProductDetail(product.getId(), product.getName()))
+                .map(product -> new ProductDetail(product.getId(), product.getName(), product.getVersion()))
                 .collect(Collectors.toList());
     }
 

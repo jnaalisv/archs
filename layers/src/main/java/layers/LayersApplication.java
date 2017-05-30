@@ -1,8 +1,5 @@
 package layers;
 
-import layers.config.WebMvcConfiguration;
-import layers.persistence.HibernateConfiguration;
-import layers.services.ServicesConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory;
@@ -25,7 +22,7 @@ public class LayersApplication {
     public ServletRegistrationBean servletRegistrationBean() {
 
         AnnotationConfigWebApplicationContext servletAppContext = new AnnotationConfigWebApplicationContext();
-        servletAppContext.register(HibernateConfiguration.class, ServicesConfiguration.class, WebMvcConfiguration.class);
+        servletAppContext.register(ApplicationConfig.class);
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(servletAppContext);
 

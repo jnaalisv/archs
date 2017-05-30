@@ -47,7 +47,7 @@ public class ProductControllerTest {
     @Test
     public void getProductsShouldReturnProducts() throws Exception {
         given(this.productService.getProducts())
-                .willReturn(Arrays.asList(new ProductDetail(1, "Cool Beans")));
+                .willReturn(Arrays.asList(new ProductDetail(1, "Cool Beans", 0L)));
 
         this.mvc.perform(
                 get("/products")
@@ -58,7 +58,7 @@ public class ProductControllerTest {
 
 
     @Test
-    public void addingProductShouldReturnAddedProduct() throws Exception {
+    public void postShouldReturnCreatedProduct() throws Exception {
         this.mvc.perform(
                 post("/products")
                         .content("{\"name\":\"Cool Beans\"}")
@@ -67,5 +67,4 @@ public class ProductControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(content().string("{\n  \"id\" : 0,\n  \"name\" : \"Cool Beans\"\n}"));
     }
-
 }
