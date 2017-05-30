@@ -26,6 +26,12 @@ public class OrderLine {
 
     public OrderLine() { /* hibernate */}
 
+    public OrderLine(long productId, BigDecimal amount, PurchaseOrder purchaseOrder) {
+        this.productId = productId;
+        this.amount = amount;
+        this.purchaseOrder = purchaseOrder;
+    }
+
     public OrderLine(long id, long productId, BigDecimal amount) {
         this.id = id;
         this.productId = productId;

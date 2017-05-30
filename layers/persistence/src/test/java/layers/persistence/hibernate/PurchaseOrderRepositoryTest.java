@@ -1,18 +1,26 @@
 package layers.persistence.hibernate;
 
+import layers.model.orders.OrderLine;
+import layers.model.orders.PurchaseOrder;
 import layers.model.orders.PurchaseOrderRepository;
-import layers.model.products.Product;
 import layers.model.products.ProductRepository;
 import layers.persistence.HibernateConfiguration;
 import org.hibernate.SessionFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.jdbc.JdbcTestUtils;
+
+import javax.sql.DataSource;
+import java.math.BigDecimal;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,27 +35,68 @@ public class PurchaseOrderRepositoryTest extends AbstractTransactionalJUnit4Spri
     @Autowired
     private PurchaseOrderRepository purchaseOrderRepository;
 
-//    @Sql({"classpath:clear-database.sql"})
-//    @Test
-//    public void shouldAddProduct() {
-//
-//        productRepository.add(new Product(0, "Cool Beans"));
-//        productRepository.add(new Product(0, "Arabica Beans"));
-//
-//        sessionFactory.getCurrentSession().flush();
-//
-//        assertThat(countRowsInTableWhere("product", "name = 'Cool Beans'")).isEqualTo(1);
-//        assertThat(countRowsInTableWhere("product", "name like '%Beans'")).isEqualTo(2);
-//        assertThat(countRowsInTableWhere("product", null)).isEqualTo(2);
-//    }
-//
-//    @Sql(scripts = {
-//            "classpath:clear-database.sql"
-//    }, statements = {
-//        "insert into product(id, name) values (1, 'Cool Beans'),(2, 'Java Beans');"
-//    })
-//    @Test
-//    public void shouldGetAllProducts() {
-//        assertThat(productRepository.getProducts().size()).isEqualTo(2);
-//    }
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private DataSource dataSource;
+
+    private JdbcTemplate jdbcTemplate;
+
+    @Before
+    public void setUp() {
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    @Sql(scripts = {
+            "classpath:clear-database.sql"
+    }, statements = {
+        "insert into product(id, name) values (1, 'Cool Beans'),(2, 'Java Beans');"
+    })
+    @Test
+    public void shouldAddPurchaseOrder() {
+
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
+
+        productRepository
+                .getProducts()
+                .forEach(product ->
+                        purchaseOrder
+                                .getOrderLines()
+                                .add(new OrderLine(product.getId(), BigDecimal.ONE, purchaseOrder))
+                );
+
+        purchaseOrderRepository.create(purchaseOrder);
+
+        sessionFactory.getCurrentSession().flush();
+
+        assertThat(countRowsInTableWhere("PurchaseOrder", "id = " +purchaseOrder.getId())).isEqualTo(1);
+        assertThat(countRowsInTableWhere("OrderLIne", "purchaseOrder_id = " +purchaseOrder.getId())).isEqualTo(2);
+    }
+
+    @Sql(scripts = {
+            "classpath:clear-database.sql"
+    }, statements = {
+            "insert " +
+                    "into product(id, name) " +
+                    "values " +
+                    "((select nextval ('hibernate_sequence')), 'Cool Beans')," +
+                    "((select nextval ('hibernate_sequence')), 'Java Beans'); ",
+            "insert into PurchaseOrder(version, id) values (0, (select nextval ('hibernate_sequence')));",
+            "insert into OrderLine(amount, product_id, purchaseOrder_id, id) " +
+                    "values (3, (select id from product where name='Cool Beans'), (select id from PurchaseOrder), (select nextval ('hibernate_sequence')));",
+            "insert into OrderLine(amount, product_id, purchaseOrder_id, id) " +
+                    "values (5, (select id from product where name='Java Beans'), (select id from PurchaseOrder), (select nextval ('hibernate_sequence')));",
+    })
+    @Test
+    public void shouldReadPurchaseOrders() {
+        List<PurchaseOrder> purchaseOrders = purchaseOrderRepository.getAll();
+        assertThat(purchaseOrders.size()).isEqualTo(1);
+
+        long purchaseOrderId = jdbcTemplate.queryForObject("select id from PurchaseOrder", Long.class);
+
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.readById(purchaseOrderId).get();
+
+        assertThat(purchaseOrder.getOrderLines().size()).isEqualTo(2);
+    }
 }
