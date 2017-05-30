@@ -1,5 +1,7 @@
 package layers.http;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import layers.config.SerializationConfiguration;
 import layers.services.PurchaseOrderDetail;
 import layers.services.PurchaseOrderService;
 import org.junit.Before;
@@ -9,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -31,9 +34,14 @@ public class PurchaseOrderControllerTest {
 
     private MockMvc mvc;
 
+    private final ObjectMapper objectMapper = new SerializationConfiguration().objectMapper();
+
     @Before
     public void setup() {
-        mvc = MockMvcBuilders.standaloneSetup(purchaseOrderController).build();
+        mvc = MockMvcBuilders
+                .standaloneSetup(purchaseOrderController)
+                .setMessageConverters(new MappingJackson2HttpMessageConverter(objectMapper))
+                .build();
     }
 
     @Test
@@ -54,21 +62,6 @@ public class PurchaseOrderControllerTest {
                 get("/purchase-orders")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(content().string("[" +
-                        "{\"id\":1,\"version\":\"3\",\"createTime\":},\"orderLines\":[]" +
-                        "]"));
+                .andExpect(content().string("[ {\n  \"id\" : 1,\n  \"createTime\" : \"2017-05-05T12:05:00\",\n  \"version\" : 3,\n  \"orderLines\" : [ ]\n} ]"));
     }
-
-
-//    @Test
-//    public void addingProductShouldReturnAddedProduct() throws Exception {
-//        this.mvc.perform(
-//                post("/purchase-orders")
-//                        .content("{\"orderlines\":[{},{}]}")
-//                        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-//                        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//                .andExpect(status().isCreated())
-//                .andExpect(content().string("{\"id\":0,\"name\":\"Cool Beans\"}"));
-//    }
-
 }

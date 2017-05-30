@@ -1,8 +1,7 @@
 package layers.http;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import layers.config.SerializationConfiguration;
 import layers.services.ProductDetail;
 import layers.services.ProductService;
 import org.junit.Before;
@@ -35,16 +34,10 @@ public class ProductControllerTest {
 
     private MockMvc mvc;
 
+    private final ObjectMapper objectMapper = new SerializationConfiguration().objectMapper();
+
     @Before
     public void setup() {
-
-        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.registerModule(new JavaTimeModule());
-//        objectMapper.registerModule(new Jdk8Module());
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
-        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-
         mvc = MockMvcBuilders
                 .standaloneSetup(productController)
                 .setMessageConverters(new MappingJackson2HttpMessageConverter(objectMapper))
@@ -60,7 +53,7 @@ public class ProductControllerTest {
                 get("/products")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(content().string("[{\"id\":1,\"name\":\"Cool Beans\"}]"));
+                .andExpect(content().string("[ {\n  \"id\" : 1,\n  \"name\" : \"Cool Beans\"\n} ]"));
     }
 
 
@@ -72,7 +65,7 @@ public class ProductControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isCreated())
-                .andExpect(content().string("{\"id\":0,\"name\":\"Cool Beans\"}"));
+                .andExpect(content().string("{\n  \"id\" : 0,\n  \"name\" : \"Cool Beans\"\n}"));
     }
 
 }

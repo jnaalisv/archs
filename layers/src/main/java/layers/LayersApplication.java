@@ -1,22 +1,41 @@
 package layers;
+
+import layers.config.WebMvcConfiguration;
 import layers.persistence.HibernateConfiguration;
 import layers.services.ServicesConfiguration;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
-@SpringBootConfiguration
-@Import({
-        HibernateConfiguration.class,
-        ServicesConfiguration.class,
-        WebMvcConfiguration.class
-})
-@EnableAutoConfiguration(exclude= {HibernateJpaAutoConfiguration.class})
-@ComponentScan("layers.http")
 public class LayersApplication {
+
+    @Bean
+    public EmbeddedServletContainerFactory servletContainer() {
+        JettyEmbeddedServletContainerFactory factory = new JettyEmbeddedServletContainerFactory();
+        factory.setPort(9000);
+        factory.setContextPath("/layers");
+        return factory;
+    }
+
+    @Bean
+    public ServletRegistrationBean servletRegistrationBean() {
+
+        AnnotationConfigWebApplicationContext servletAppContext = new AnnotationConfigWebApplicationContext();
+        servletAppContext.register(HibernateConfiguration.class, ServicesConfiguration.class, WebMvcConfiguration.class);
+
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(servletAppContext);
+
+        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(dispatcherServlet);
+        servletRegistrationBean.setName("Layers");
+        servletRegistrationBean.setLoadOnStartup(1);
+        servletRegistrationBean.setAsyncSupported(true);
+        servletRegistrationBean.addUrlMappings("/*");
+        return servletRegistrationBean;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(LayersApplication.class, args);

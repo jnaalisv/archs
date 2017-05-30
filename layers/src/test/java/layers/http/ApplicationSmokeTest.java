@@ -26,7 +26,7 @@ public class ApplicationSmokeTest {
 
     @Test
     public void ShouldNotBlowUp() {
-        ResponseEntity<List> responseEntity = restTemplate.getForEntity("/products", List.class);
+        ResponseEntity<List> responseEntity = restTemplate.getForEntity("/layers/products", List.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 }
