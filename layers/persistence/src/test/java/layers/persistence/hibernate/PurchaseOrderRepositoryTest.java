@@ -99,4 +99,34 @@ public class PurchaseOrderRepositoryTest extends AbstractTransactionalJUnit4Spri
 
         assertThat(purchaseOrder.getOrderLines().size()).isEqualTo(2);
     }
+
+    @Sql(scripts = {
+            "classpath:clear-database.sql"
+    }, statements = {
+            "insert " +
+                    "into product(id, name) " +
+                    "values " +
+                    "((select nextval ('hibernate_sequence')), 'Cool Beans')," +
+                    "((select nextval ('hibernate_sequence')), 'Pinto Beans')," +
+                    "((select nextval ('hibernate_sequence')), 'Java Beans'); ",
+            "insert into PurchaseOrder(version, id) values (0, (select nextval ('hibernate_sequence')));",
+            "insert into OrderLine(amount, product_id, purchaseOrder_id, id) " +
+                    "values (3, (select id from product where name='Cool Beans'), (select id from PurchaseOrder), (select nextval ('hibernate_sequence')));",
+            "insert into OrderLine(amount, product_id, purchaseOrder_id, id) " +
+                    "values (5, (select id from product where name='Java Beans'), (select id from PurchaseOrder), (select nextval ('hibernate_sequence')));",
+    })
+    @Test
+    public void shouldUpdatePurchaseOrder() {
+        long purchaseOrderId = jdbcTemplate.queryForObject("select id from PurchaseOrder", Long.class);
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.readById(purchaseOrderId).get();
+
+        long pintoBeanProductId = jdbcTemplate.queryForObject("select id from Product where name = 'Pinto Beans'", Long.class);
+
+        purchaseOrder.getOrderLines().clear();
+        purchaseOrder.getOrderLines().add(new OrderLine(pintoBeanProductId, new BigDecimal("23"), purchaseOrder));
+        sessionFactory.getCurrentSession().flush();
+
+        assertThat(countRowsInTableWhere("OrderLine", "purchaseOrder_id = " +purchaseOrder.getId())).isEqualTo(1);
+        assertThat(countRowsInTableWhere("OrderLine", "product_id = " +pintoBeanProductId)).isEqualTo(1);
+    }
 }
