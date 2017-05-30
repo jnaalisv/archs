@@ -23,6 +23,7 @@ dependencies {
             "org.eclipse.jetty:jetty-servlets",
             "org.eclipse.jetty:jetty-webapp",
             "com.fasterxml.jackson.core:jackson-databind",
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310",
             "org.springframework:spring-webmvc"
 
     testCompile "org.springframework.boot:spring-boot-starter-test",
