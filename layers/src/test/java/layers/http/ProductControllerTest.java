@@ -1,5 +1,8 @@
 package layers.http;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import layers.services.ProductDetail;
 import layers.services.ProductService;
 import org.junit.Before;
@@ -9,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -33,7 +37,18 @@ public class ProductControllerTest {
 
     @Before
     public void setup() {
-        mvc = MockMvcBuilders.standaloneSetup(productController).build();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.registerModule(new JavaTimeModule());
+//        objectMapper.registerModule(new Jdk8Module());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
+        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
+        mvc = MockMvcBuilders
+                .standaloneSetup(productController)
+                .setMessageConverters(new MappingJackson2HttpMessageConverter(objectMapper))
+                .build();
     }
 
     @Test

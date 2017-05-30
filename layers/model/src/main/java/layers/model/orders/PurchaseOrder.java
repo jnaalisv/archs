@@ -31,6 +31,11 @@ public class PurchaseOrder {
 
     public PurchaseOrder() { /* hibernate*/}
 
+    public PurchaseOrder(final long id, long version) {
+        this.id = id;
+        this.version = version;
+    }
+
     public PurchaseOrder(final long id, final List<OrderLine> orderLines) {
         this.id = id;
         this.orderLines = orderLines;

@@ -1,5 +1,4 @@
 package layers;
-
 import layers.persistence.HibernateConfiguration;
 import layers.services.ServicesConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +11,8 @@ import org.springframework.context.annotation.Import;
 @SpringBootConfiguration
 @Import({
         HibernateConfiguration.class,
-        ServicesConfiguration.class
+        ServicesConfiguration.class,
+        WebMvcConfiguration.class
 })
 @EnableAutoConfiguration(exclude= {HibernateJpaAutoConfiguration.class})
 @ComponentScan("layers.http")

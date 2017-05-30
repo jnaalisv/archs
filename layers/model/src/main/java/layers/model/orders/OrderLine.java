@@ -38,6 +38,12 @@ public class OrderLine {
         this.amount = amount;
     }
 
+    public OrderLine(long id, long productId, BigDecimal amount, PurchaseOrder purchaseOrder) {
+        this.id = id;
+        this.productId = productId;
+        this.amount = amount;
+    }
+
     public long getId() {
         return id;
     }
