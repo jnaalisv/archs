@@ -7,10 +7,13 @@ buildscript {
 plugins {
     id 'java-library'
     id "org.flywaydb.flyway" version "4.2.0"
+    id 'nu.studer.jooq' version '2.0.6'
 }
 
 dependencies {
-    runtimeOnly"org.postgresql:postgresql:$postgreSqlVersion",
+    jooqRuntime "org.postgresql:postgresql:$postgreSqlVersion"
+
+    runtimeOnly "org.postgresql:postgresql:$postgreSqlVersion",
             logback_runtime
 
     implementation project(":model"),
@@ -19,7 +22,8 @@ dependencies {
             "org.springframework:spring-orm:$springVersion",
             "org.hibernate:hibernate-core:$hibernateVersion",
             "com.zaxxer:HikariCP:$hikaricpVersion",
-            "org.flywaydb:flyway-core:$flywayVersion"
+            "org.flywaydb:flyway-core:$flywayVersion",
+            'org.jooq:jooq'
 
     testImplementation "junit:junit:$junitVersion",
             "org.assertj:assertj-core:$assertJVersion",
@@ -45,4 +49,59 @@ flyway {
     url = 'jdbc:postgresql://' + migrationHost + ':'+ migrationPort + '/' + migrationDatabase
     user = 'layers_user'
     password = 'layers_user'
+}
+
+jooq {
+    version = '3.9.2'
+    edition = 'OSS'
+    layers(sourceSets.main) {
+        jdbc {
+            driver = 'org.postgresql.Driver'
+            url = 'jdbc:postgresql://localhost:5432/layers_db'
+            user = 'layers_user'
+            password = 'layers_user'
+//            properties {
+//                property {
+//                    key = 'ssl'
+//                    value = 'true'
+//                }
+//            }
+        }
+        generator {
+            name = 'org.jooq.util.DefaultGenerator'
+            strategy {
+                name = 'org.jooq.util.DefaultGeneratorStrategy'
+                // ...
+            }
+            database {
+                name = 'org.jooq.util.postgres.PostgresDatabase'
+                inputSchema = 'public'
+//                forcedTypes {
+//                    forcedType {
+//                        name = 'varchar'
+//                        expression = '.*'
+//                        types = 'JSONB?'
+//                    }
+//                    forcedType {
+//                        name = 'varchar'
+//                        expression = '.*'
+//                        types = 'INET'
+//                    }
+//                }
+                // ...
+            }
+            generate {
+                relations = true
+                deprecated = false
+                records = true
+                immutablePojos = true
+                fluentSetters = true
+                // ...
+            }
+            target {
+                packageName = 'layers.persistence.jooq'
+                directory = 'src/main/java'
+            }
+        }
+    }
 }
