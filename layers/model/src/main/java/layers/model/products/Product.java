@@ -1,43 +1,28 @@
 package layers.model.products;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
 import java.time.LocalDateTime;
 
-@Entity
 public class Product {
 
-    @Id
-    @GeneratedValue
     private long id;
-
     private String name;
-
-    @Column(insertable = false, updatable = false)
     private LocalDateTime createTime;
-
-    @Version
     private long version;
 
-    public Product(String name) {
-        this.name = name;
-    }
-
     public Product(long id, String name) {
-        this.id = id;
         this.name = name;
+        this.id = id;
     }
 
     public Product(long id, String name, long version) {
-        this.id = id;
-        this.name = name;
+        this(id, name);
         this.version = version;
     }
 
-    public Product() {}
+    public Product(long id, String name, long version, LocalDateTime createTime) {
+        this(id, name, version);
+        this.createTime = createTime;
+    }
 
     public String getName() {
         return name;

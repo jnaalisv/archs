@@ -34,7 +34,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource) throws PropertyVetoException {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setPackagesToScan("layers.model");
+        sessionFactory.setPackagesToScan("layers.persistence.hibernate");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

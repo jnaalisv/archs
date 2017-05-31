@@ -37,7 +37,7 @@ class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductDetail create(ProductDetail product) {
-        Product createdProduct = productRepository.create(new Product(product.name));
+        Product createdProduct = productRepository.create(new Product(product.id, product.name, product.version));
         return ProductAssembler.from(createdProduct);
     }
 
