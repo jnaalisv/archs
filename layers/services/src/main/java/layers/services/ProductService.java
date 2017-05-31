@@ -4,5 +4,7 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductDetail> getProducts();
-    void add(ProductDetail product);
+    ProductDetail create(ProductDetail product);
+    ProductDetail update(long productId, ProductDetail product);
+    ProductDetail findById(long productId);
 }

@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,9 +34,20 @@ public class ProductController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ProductDetail> save(@RequestBody ProductDetail product) {
 
-        productService.add(product);
+        ProductDetail createdProduct = productService.create(product);
 
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>(product, responseHeaders, HttpStatus.CREATED);
+        responseHeaders.set("Location", "/products/"+createdProduct.id);
+        return new ResponseEntity<>(createdProduct, responseHeaders, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value= "{productId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ProductDetail update(@PathVariable long productId) {
+        return productService.findById(productId);
+    }
+
+    @PutMapping(value= "{productId}",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ProductDetail update(@PathVariable long productId, @RequestBody ProductDetail product) {
+        return productService.update(productId, product);
     }
 }

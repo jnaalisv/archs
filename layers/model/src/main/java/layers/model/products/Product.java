@@ -20,11 +20,21 @@ public class Product {
     private LocalDateTime createTime;
 
     @Version
-    private long version;
+    private Long version;
+
+    public Product(String name) {
+        this.name = name;
+    }
 
     public Product(long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Product(long id, String name, long version) {
+        this.id = id;
+        this.name = name;
+        this.version = version;
     }
 
     public Product() {}
