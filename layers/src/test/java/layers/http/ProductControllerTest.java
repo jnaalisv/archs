@@ -34,7 +34,7 @@ public class ProductControllerTest {
 
     private MockMvc mvc;
 
-    private final ObjectMapper objectMapper = new SerializationConfiguration().objectMapper();
+    private final ObjectMapper objectMapper = SerializationConfiguration.objectMapper();
 
     @Before
     public void setup() {
@@ -53,7 +53,11 @@ public class ProductControllerTest {
                 get("/products")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(content().string("[ {\n  \"id\" : 1,\n  \"name\" : \"Cool Beans\"\n} ]"));
+                .andExpect(content().string("[ {\n" +
+                        "  \"id\" : 1,\n" +
+                        "  \"name\" : \"Cool Beans\",\n" +
+                        "  \"version\" : 0\n" +
+                        "} ]"));
     }
 
 
@@ -65,6 +69,10 @@ public class ProductControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isCreated())
-                .andExpect(content().string("{\n  \"id\" : 0,\n  \"name\" : \"Cool Beans\"\n}"));
+                .andExpect(content().string("{\n" +
+                        "  \"id\" : 0,\n" +
+                        "  \"name\" : \"Cool Beans\",\n" +
+                        "  \"version\" : 0\n" +
+                        "}"));
     }
 }

@@ -34,7 +34,7 @@ public class PurchaseOrderControllerTest {
 
     private MockMvc mvc;
 
-    private final ObjectMapper objectMapper = new SerializationConfiguration().objectMapper();
+    private final ObjectMapper objectMapper = SerializationConfiguration.objectMapper();
 
     @Before
     public void setup() {
