@@ -30,14 +30,15 @@ class ProductServiceImpl implements ProductService {
         return productRepository
                 .getProducts()
                 .stream()
-                .map(product -> new ProductDetail(product.getId(), product.getName(), product.getVersion()))
+                .map(ProductAssembler::from)
                 .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public void create(ProductDetail product) {
-        productRepository.create(new Product(product.id, product.name));
+    public ProductDetail create(ProductDetail product) {
+        Product createdProduct = productRepository.create(new Product(product.name));
+        return ProductAssembler.from(createdProduct);
     }
 
     @Override

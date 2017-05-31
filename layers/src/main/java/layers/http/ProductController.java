@@ -34,10 +34,11 @@ public class ProductController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ProductDetail> save(@RequestBody ProductDetail product) {
 
-        productService.create(product);
+        ProductDetail createdProduct = productService.create(product);
 
         HttpHeaders responseHeaders = new HttpHeaders();
-        return new ResponseEntity<>(product, responseHeaders, HttpStatus.CREATED);
+        responseHeaders.set("Location", "/products/"+createdProduct.id);
+        return new ResponseEntity<>(createdProduct, responseHeaders, HttpStatus.CREATED);
     }
 
     @PutMapping(value= "{productId}",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

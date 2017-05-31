@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Repository
@@ -21,14 +22,17 @@ class HibernateProductRepository implements ProductRepository {
         return sessionFactory.getCurrentSession();
     }
 
+    @Override
     public List<Product> getProducts() {
         return getCurrentSession()
                 .createQuery("select p from Product p", Product.class)
                 .list();
     }
 
-    public void create(Product product) {
-        getCurrentSession().save(product);
+    @Override
+    public Product create(Product product) {
+        Serializable id = getCurrentSession().save(product);
+        return product;
     }
 
     @Override

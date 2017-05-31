@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ProductRepository {
     List<Product> getProducts();
-    void create(Product product);
+    Product create(Product product);
     Product update(Product productToUpdate);
 }

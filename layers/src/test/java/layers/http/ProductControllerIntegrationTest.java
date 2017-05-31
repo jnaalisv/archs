@@ -19,8 +19,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestPropertySource("classpath:datasource-test.properties")
@@ -53,6 +55,30 @@ public class ProductControllerIntegrationTest {
         assertThat(productDetails.get(0).name).isEqualTo("Jelly Beans");
         assertThat(productDetails.get(0).version).isEqualTo(0);
         assertThat(productDetails.get(0).id).isEqualTo(1);
+    }
+
+    @Sql({"classpath:clear-database.sql"})
+    @Test
+    public void postShoulCreateANewProduct() throws Exception {
+        ProductDetail newProduct = new ProductDetail(0L, "Robusta Beans", 0);
+        String requestBody = objectMapper.writeValueAsString(newProduct);
+
+        String responseBody = this.mvc.perform(
+                post("/products")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .content(requestBody)
+        )
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "/products/1"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        ProductDetail createdProduct = objectMapper.readValue(responseBody, ProductDetail.class);
+        assertThat(createdProduct.id).isNotZero();
+        assertThat(createdProduct.name).isEqualTo(newProduct.name);
+        assertThat(createdProduct.version).isEqualTo(0);
     }
 
     @Sql({"classpath:clear-database.sql", "classpath:products.sql"})

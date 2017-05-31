@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductDetail> getProducts();
-    void create(ProductDetail product);
+    ProductDetail create(ProductDetail product);
     ProductDetail update(long productId, ProductDetail product);
 }

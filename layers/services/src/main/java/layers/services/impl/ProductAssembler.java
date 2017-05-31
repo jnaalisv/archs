@@ -10,6 +10,6 @@ public class ProductAssembler {
     }
 
     public static ProductDetail from(Product product) {
-        return new ProductDetail(product.getId(), product.getName(), product.getVersion());
+        return new ProductDetail(product.getId(), product.getName(), product.getVersion(), product.getCreateTime());
     }
 }
