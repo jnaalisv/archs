@@ -30,9 +30,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PurchaseOrderRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
-    private SessionFactory sessionFactory;
-
-    @Autowired
     private PurchaseOrderRepository purchaseOrderRepository;
 
     @Autowired
@@ -56,7 +53,7 @@ public class PurchaseOrderRepositoryTest extends AbstractTransactionalJUnit4Spri
     @Test
     public void shouldAddPurchaseOrder() {
 
-        PurchaseOrder purchaseOrder = new PurchaseOrder();
+        PurchaseOrder purchaseOrder = new PurchaseOrder(0L, 0L);
 
         productRepository
                 .getProducts()
@@ -66,12 +63,10 @@ public class PurchaseOrderRepositoryTest extends AbstractTransactionalJUnit4Spri
                                 .add(new OrderLine(product.getId(), BigDecimal.ONE, purchaseOrder))
                 );
 
-        purchaseOrderRepository.create(purchaseOrder);
+        PurchaseOrder createdPurchaseOrder = purchaseOrderRepository.create(purchaseOrder);
 
-        sessionFactory.getCurrentSession().flush();
-
-        assertThat(countRowsInTableWhere("PurchaseOrder", "id = " +purchaseOrder.getId())).isEqualTo(1);
-        assertThat(countRowsInTableWhere("OrderLIne", "purchaseOrder_id = " +purchaseOrder.getId())).isEqualTo(2);
+        assertThat(countRowsInTableWhere("PurchaseOrder", "id = " +createdPurchaseOrder.getId())).isEqualTo(1);
+        assertThat(countRowsInTableWhere("OrderLine", "purchaseOrder_id = " +createdPurchaseOrder.getId())).isEqualTo(2);
     }
 
     @Sql(scripts = {
@@ -124,7 +119,8 @@ public class PurchaseOrderRepositoryTest extends AbstractTransactionalJUnit4Spri
 
         purchaseOrder.getOrderLines().clear();
         purchaseOrder.getOrderLines().add(new OrderLine(pintoBeanProductId, new BigDecimal("23"), purchaseOrder));
-        sessionFactory.getCurrentSession().flush();
+
+        purchaseOrderRepository.update(purchaseOrder);
 
         assertThat(countRowsInTableWhere("OrderLine", "purchaseOrder_id = " +purchaseOrder.getId())).isEqualTo(1);
         assertThat(countRowsInTableWhere("OrderLine", "product_id = " +pintoBeanProductId)).isEqualTo(1);

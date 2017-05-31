@@ -2,6 +2,7 @@ package layers.persistence.hibernate;
 
 import layers.model.products.Product;
 import layers.model.products.ProductRepository;
+import layers.persistence.entities.ProductEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -26,7 +27,7 @@ class HibernateProductRepository implements ProductRepository {
     @Override
     public List<Product> getProducts() {
         return getCurrentSession()
-                .createQuery("select p from layers.persistence.hibernate.ProductEntity p", ProductEntity.class)
+                .createQuery("select p from ProductEntity p", ProductEntity.class)
                 .list()
                 .stream()
                 .map(product -> {

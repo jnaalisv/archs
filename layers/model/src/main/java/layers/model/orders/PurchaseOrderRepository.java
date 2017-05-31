@@ -5,6 +5,8 @@ import java.util.Optional;
 
 public interface PurchaseOrderRepository {
     List<PurchaseOrder> getAll();
-    void create(PurchaseOrder purchaseOrder);
+    PurchaseOrder create(PurchaseOrder purchaseOrder);
     Optional<PurchaseOrder> readById(long id);
+
+    void update(PurchaseOrder purchaseOrder);
 }

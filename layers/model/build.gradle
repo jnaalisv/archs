@@ -4,10 +4,9 @@ plugins {
 
 dependencies {
 
-    implementation "org.slf4j:slf4j-api:$slf4jVersion",
-            "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
-
     runtimeOnly logback_runtime
+
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
 
     testImplementation "junit:junit:$junitVersion",
             "org.assertj:assertj-core:$assertJVersion"
@@ -16,7 +15,6 @@ dependencies {
 sourceSets {
     test {
         resources {
-            srcDirs += "$rootDir/shared/test/resources"
             srcDirs += "$rootDir/shared/logback"
         }
     }

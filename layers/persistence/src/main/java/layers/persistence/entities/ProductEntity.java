@@ -1,4 +1,4 @@
-package layers.persistence.hibernate;
+package layers.persistence.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import javax.persistence.Version;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="product")
+@Table(name="Product")
 public class ProductEntity {
 
     @Id

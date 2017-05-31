@@ -1,39 +1,28 @@
 package layers.model.orders;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Version;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Entity
 public class PurchaseOrder {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
     private long id;
-
-    @Column(insertable = false, updatable = false)
     private LocalDateTime createTime;
-
-    @Version
     private long version;
-
-    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderLine> orderLines = new ArrayList<>();
-
-    public PurchaseOrder() { /* hibernate*/}
 
     public PurchaseOrder(final long id, long version) {
         this.id = id;
         this.version = version;
+    }
+
+    public PurchaseOrder(final long id, LocalDateTime createTime, long version, final List<OrderLine> orderLines) {
+        this.id = id;
+        this.createTime = createTime;
+        this.version = version;
+        this.orderLines = orderLines;
+        this.orderLines.forEach(orderLine -> orderLine.setPurchaseOrder(this));
     }
 
     public PurchaseOrder(final long id, final List<OrderLine> orderLines) {
