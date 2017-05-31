@@ -36,8 +36,8 @@ class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void add(ProductDetail product) {
-        productRepository.add(new Product(product.id, product.name));
+    public void create(ProductDetail product) {
+        productRepository.create(new Product(product.id, product.name));
     }
 
     @Override

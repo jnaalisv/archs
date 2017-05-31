@@ -34,7 +34,7 @@ public class ProductController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ProductDetail> save(@RequestBody ProductDetail product) {
 
-        productService.add(product);
+        productService.create(product);
 
         HttpHeaders responseHeaders = new HttpHeaders();
         return new ResponseEntity<>(product, responseHeaders, HttpStatus.CREATED);

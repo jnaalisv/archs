@@ -27,7 +27,7 @@ class HibernateProductRepository implements ProductRepository {
                 .list();
     }
 
-    public void add(Product product) {
+    public void create(Product product) {
         getCurrentSession().save(product);
     }
 

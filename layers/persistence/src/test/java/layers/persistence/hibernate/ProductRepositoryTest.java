@@ -30,8 +30,8 @@ public class ProductRepositoryTest extends AbstractTransactionalJUnit4SpringCont
     @Test
     public void shouldAddProduct() {
 
-        productRepository.add(new Product(0, "Cool Beans"));
-        productRepository.add(new Product(0, "Arabica Beans"));
+        productRepository.create(new Product(0, "Cool Beans"));
+        productRepository.create(new Product(0, "Arabica Beans"));
 
         sessionFactory.getCurrentSession().flush();
 
