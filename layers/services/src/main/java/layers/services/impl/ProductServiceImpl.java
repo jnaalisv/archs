@@ -23,6 +23,7 @@ class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<ProductDetail> getProducts() {
         logger.debug("getProducts");
@@ -33,11 +34,20 @@ class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     @Transactional
     public void add(ProductDetail product) {
-        logger.debug("add");
-        productRepository.add(
-                new Product(product.id, product.name)
-        );
+        productRepository.add(new Product(product.id, product.name));
+    }
+
+    @Override
+    @Transactional
+    public ProductDetail update(long productId, ProductDetail productDetail) {
+
+        Product productToUpdate = ProductAssembler.forUpdate(productDetail);
+
+        Product updatedProduct = productRepository.update(productToUpdate);
+
+        return ProductAssembler.from(updatedProduct);
     }
 }

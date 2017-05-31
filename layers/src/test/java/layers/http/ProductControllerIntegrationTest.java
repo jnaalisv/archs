@@ -20,6 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestPropertySource("classpath:datasource-test.properties")
@@ -52,5 +53,30 @@ public class ProductControllerIntegrationTest {
         assertThat(productDetails.get(0).name).isEqualTo("Jelly Beans");
         assertThat(productDetails.get(0).version).isEqualTo(0);
         assertThat(productDetails.get(0).id).isEqualTo(1);
+    }
+
+    @Sql({"classpath:clear-database.sql", "classpath:products.sql"})
+    @Test
+    public void putShouldUpdateProduct() throws Exception {
+
+        ProductDetail productDetail = new ProductDetail(1L, "Arabica Beans", 0);
+
+        String requestBody = objectMapper.writeValueAsString(productDetail);
+
+        String responseBody = this.mvc.perform(
+                put("/products/"+productDetail.id)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .content(requestBody)
+                )
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        ProductDetail updatedProduct = objectMapper.readValue(responseBody, ProductDetail.class);
+        assertThat(updatedProduct.id).isEqualTo(productDetail.id);
+        assertThat(updatedProduct.name).isEqualTo(productDetail.name);
+        assertThat(updatedProduct.version).isEqualTo(productDetail.version+1);
     }
 }

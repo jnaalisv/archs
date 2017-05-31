@@ -27,6 +27,12 @@ public class Product {
         this.name = name;
     }
 
+    public Product(long id, String name, long version) {
+        this.id = id;
+        this.name = name;
+        this.version = version;
+    }
+
     public Product() {}
 
     public String getName() {
