@@ -30,13 +30,12 @@ class HibernateProductRepository implements ProductRepository {
                 .createQuery("select p from ProductEntity p", ProductEntity.class)
                 .list()
                 .stream()
-                .map(product -> {
-                    return new Product(
+                .map(product ->
+                        new Product(
                             product.getId(),
                             product.getName(),
                             product.getVersion(),
-                            product.getCreateTime());
-                })
+                            product.getCreateTime()))
                 .collect(Collectors.toList());
     }
 
