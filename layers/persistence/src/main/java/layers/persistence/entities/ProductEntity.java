@@ -14,22 +14,17 @@ public class ProductEntity {
 
     @Id
     @GeneratedValue
-    private long id;
+    public long id;
 
-    private String name;
+    public String name;
 
     @Column(insertable = false, updatable = false)
-    private LocalDateTime createTime;
+    public LocalDateTime createTime;
 
     @Version
-    private long version;
+    public long version;
 
     public ProductEntity(String name) {
-        this.name = name;
-    }
-
-    public ProductEntity(long id, String name) {
-        this.id = id;
         this.name = name;
     }
 
@@ -39,21 +34,5 @@ public class ProductEntity {
         this.version = version;
     }
 
-    public ProductEntity() {}
-
-    public String getName() {
-        return name;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public long getVersion() {
-        return version;
-    }
+    public ProductEntity() { /* hibernate */}
 }

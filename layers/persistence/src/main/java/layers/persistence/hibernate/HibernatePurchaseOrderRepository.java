@@ -33,17 +33,17 @@ class HibernatePurchaseOrderRepository implements PurchaseOrderRepository {
                 .stream()
                 .map(purchaseOrderEntity ->
                         new PurchaseOrder(
-                                purchaseOrderEntity.getId(),
-                                purchaseOrderEntity.getCreateTime(),
-                                purchaseOrderEntity.getVersion(),
+                                purchaseOrderEntity.id,
+                                purchaseOrderEntity.createTime,
+                                purchaseOrderEntity.version,
                                 purchaseOrderEntity
-                                        .getOrderLines()
+                                        .orderLines
                                         .stream()
                                         .map(orderLineEntity ->
                                                 new OrderLine(
-                                                        orderLineEntity.getId(),
-                                                        orderLineEntity.getProductId(),
-                                                        orderLineEntity.getAmount()))
+                                                        orderLineEntity.id,
+                                                        orderLineEntity.productId,
+                                                        orderLineEntity.amount))
                                         .collect(Collectors.toList())
 
                         ))
@@ -69,17 +69,17 @@ class HibernatePurchaseOrderRepository implements PurchaseOrderRepository {
 
 
         return new PurchaseOrder(
-                purchaseOrderEntity.getId(),
-                purchaseOrderEntity.getCreateTime(),
-                purchaseOrderEntity.getVersion(),
+                purchaseOrderEntity.id,
+                purchaseOrderEntity.createTime,
+                purchaseOrderEntity.version,
                 purchaseOrderEntity
-                        .getOrderLines()
+                        .orderLines
                         .stream()
                         .map(orderLineEntity ->
                                 new OrderLine(
-                                        orderLineEntity.getId(),
-                                        orderLineEntity.getProductId(),
-                                        orderLineEntity.getAmount()))
+                                        orderLineEntity.id,
+                                        orderLineEntity.productId,
+                                        orderLineEntity.amount))
                         .collect(Collectors.toList())
 
         );
@@ -93,17 +93,17 @@ class HibernatePurchaseOrderRepository implements PurchaseOrderRepository {
                 .uniqueResultOptional()
                 .map(purchaseOrderEntity ->
                         new PurchaseOrder(
-                            purchaseOrderEntity.getId(),
-                            purchaseOrderEntity.getCreateTime(),
-                            purchaseOrderEntity.getVersion(),
+                            purchaseOrderEntity.id,
+                            purchaseOrderEntity.createTime,
+                            purchaseOrderEntity.version,
                             purchaseOrderEntity
-                                    .getOrderLines()
+                                    .orderLines
                                     .stream()
                                     .map(orderLineEntity ->
                                             new OrderLine(
-                                                orderLineEntity.getId(),
-                                                orderLineEntity.getProductId(),
-                                                orderLineEntity.getAmount()))
+                                                orderLineEntity.id,
+                                                orderLineEntity.productId,
+                                                orderLineEntity.amount))
                                 .collect(Collectors.toList())
 
                     )

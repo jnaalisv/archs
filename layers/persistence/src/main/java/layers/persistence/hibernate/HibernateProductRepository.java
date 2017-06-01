@@ -32,10 +32,10 @@ class HibernateProductRepository implements ProductRepository {
                 .stream()
                 .map(product ->
                         new Product(
-                            product.getId(),
-                            product.getName(),
-                            product.getVersion(),
-                            product.getCreateTime()))
+                            product.id,
+                            product.name,
+                            product.version,
+                            product.createTime))
                 .collect(Collectors.toList());
     }
 
@@ -45,10 +45,10 @@ class HibernateProductRepository implements ProductRepository {
 
         Serializable id = getCurrentSession().save(product);
         return new Product(
-                product.getId(),
-                product.getName(),
-                product.getVersion(),
-                product.getCreateTime());
+                product.id,
+                product.name,
+                product.version,
+                product.createTime);
     }
 
     @Override
@@ -59,9 +59,9 @@ class HibernateProductRepository implements ProductRepository {
         getCurrentSession().flush();
 
         return new Product(
-                product.getId(),
-                product.getName(),
-                product.getVersion(),
-                product.getCreateTime());
+                product.id,
+                product.name,
+                product.version,
+                product.createTime);
     }
 }
