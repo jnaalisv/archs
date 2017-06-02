@@ -49,4 +49,25 @@ public class ProductRepositoryTest extends AbstractTransactionalJUnit4SpringCont
     public void shouldGetAllProducts() {
         assertThat(productRepository.getProducts().size()).isEqualTo(2);
     }
+
+    @Sql(scripts = {
+            "classpath:clear-database.sql"
+    }, statements = {
+            "insert into product(id, name) values (1, 'Cool Beans'),(2, 'Java Beans');"
+    })
+    @Test
+    public void shouldUpdateProduct() {
+
+        assertThat(countRowsInTableWhere("product", "version = 0 and id = 1")).isEqualTo(1);
+
+        Product product = productRepository.getProducts().get(0);
+
+        product.setName("New Hotness");
+
+        productRepository.update(product);
+
+        assertThat(countRowsInTableWhere("product", "name = 'New Hotness'")).isEqualTo(1);
+        assertThat(countRowsInTableWhere("product", "version = 1 and id = 1")).isEqualTo(1);
+    }
 }
+

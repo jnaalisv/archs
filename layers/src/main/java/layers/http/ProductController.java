@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.Serializable;
 import java.util.List;
 
 @RestController
@@ -34,7 +35,9 @@ public class ProductController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ProductDetail> save(@RequestBody ProductDetail product) {
 
-        ProductDetail createdProduct = productService.create(product);
+        Serializable createdProductId = productService.create(product);
+
+        ProductDetail createdProduct = productService.getById(createdProductId);
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Location", "/products/"+createdProduct.id);
@@ -43,6 +46,7 @@ public class ProductController {
 
     @PutMapping(value= "{productId}",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ProductDetail update(@PathVariable long productId, @RequestBody ProductDetail product) {
-        return productService.update(productId, product);
+        productService.update(productId, product);
+        return productService.getById(productId);
     }
 }

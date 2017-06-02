@@ -9,12 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
 class ProductServiceImpl implements ProductService {
-
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     private final ProductRepository productRepository;
@@ -23,32 +24,49 @@ class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
+    private static final Function<ProductDetail, Product> fromDetail =
+            productDetail -> new Product(productDetail.id, productDetail.name, productDetail.version);
+
+    private static final Function<Product, ProductDetail> toDetail =
+            product -> new ProductDetail(product.getId(), product.getName(), product.getVersion(), product.getCreateTime());
+
     @Override
     @Transactional(readOnly = true)
     public List<ProductDetail> getProducts() {
-        logger.debug("getProducts");
         return productRepository
                 .getProducts()
                 .stream()
-                .map(ProductAssembler::from)
+                .map(toDetail)
                 .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public ProductDetail create(ProductDetail product) {
-        Product createdProduct = productRepository.create(new Product(product.id, product.name, product.version));
-        return ProductAssembler.from(createdProduct);
+    public Serializable create(ProductDetail product) {
+        return productRepository.create(fromDetail.apply(product));
     }
 
     @Override
     @Transactional
-    public ProductDetail update(long productId, ProductDetail productDetail) {
+    public void update(long productId, ProductDetail productDetail) {
 
-        Product productToUpdate = ProductAssembler.forUpdate(productDetail);
+        Product productToUpdate = productRepository
+                .findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found by id="+productId));
 
-        Product updatedProduct = productRepository.update(productToUpdate);
+        productToUpdate.setName(productDetail.name);
+        productToUpdate.setVersion(productDetail.version);
+        productToUpdate.setName(productDetail.name);
 
-        return ProductAssembler.from(updatedProduct);
+        productRepository.update(productToUpdate);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ProductDetail getById(Serializable productId) {
+        return productRepository
+                .findById(productId)
+                .map(toDetail)
+                .orElseThrow(() -> new RuntimeException("Product not found by id="+productId));
     }
 }

@@ -39,4 +39,12 @@ public class Product {
     public long getVersion() {
         return version;
     }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

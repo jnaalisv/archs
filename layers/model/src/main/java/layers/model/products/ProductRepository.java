@@ -1,9 +1,12 @@
 package layers.model.products;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository {
     List<Product> getProducts();
-    Product create(Product product);
-    Product update(Product productToUpdate);
+    Serializable create(Product product);
+    void update(Product productToUpdate);
+    Optional<Product> findById(Serializable id);
 }

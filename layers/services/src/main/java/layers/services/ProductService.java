@@ -1,9 +1,11 @@
 package layers.services;
 
+import java.io.Serializable;
 import java.util.List;
 
 public interface ProductService {
     List<ProductDetail> getProducts();
-    ProductDetail create(ProductDetail product);
-    ProductDetail update(long productId, ProductDetail product);
+    Serializable create(ProductDetail product);
+    void update(long productId, ProductDetail product);
+    ProductDetail getById(Serializable id);
 }

@@ -5,14 +5,27 @@ import layers.model.products.ProductRepository;
 import layers.persistence.entities.ProductEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Repository
 class HibernateProductRepository implements ProductRepository {
+    private static final Logger logger = LoggerFactory.getLogger(HibernateProductRepository.class);
+
+    private static final Function<ProductEntity, Product> entityToModel =
+            productEntity ->
+                    new Product(
+                            productEntity.id,
+                            productEntity.name,
+                            productEntity.version,
+                            productEntity.createTime);
 
     private final SessionFactory sessionFactory;
 
@@ -30,38 +43,28 @@ class HibernateProductRepository implements ProductRepository {
                 .createQuery("select p from ProductEntity p", ProductEntity.class)
                 .list()
                 .stream()
-                .map(product ->
-                        new Product(
-                            product.id,
-                            product.name,
-                            product.version,
-                            product.createTime))
+                .map(entityToModel)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Product create(Product newProduct) {
+    public Serializable create(Product newProduct) {
         ProductEntity product = new ProductEntity(newProduct.getName());
-
-        Serializable id = getCurrentSession().save(product);
-        return new Product(
-                product.id,
-                product.name,
-                product.version,
-                product.createTime);
+        return getCurrentSession().save(product);
     }
 
     @Override
-    public Product update(Product productToUpdate) {
-
+    public void update(Product productToUpdate) {
         ProductEntity product = new ProductEntity(productToUpdate.getId(), productToUpdate.getName(), productToUpdate.getVersion());
-        getCurrentSession().update(product);
+        getCurrentSession().merge(product);
         getCurrentSession().flush();
+    }
 
-        return new Product(
-                product.id,
-                product.name,
-                product.version,
-                product.createTime);
+    @Override
+    public Optional<Product> findById(Serializable id) {
+        return getCurrentSession()
+                .byId(ProductEntity.class)
+                .loadOptional(id)
+                .map(entityToModel);
     }
 }

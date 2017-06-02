@@ -1,5 +1,6 @@
 package layers.services;
 
+import layers.model.products.Product;
 import layers.persistence.HibernateConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,5 +32,23 @@ public class ProductServiceIntegrationTest {
     @Test
     public void shouldGetProducts() {
         assertThat(productService.getProducts().size()).isEqualTo(1);
+    }
+
+
+    @Sql(scripts = {
+            "classpath:clear-database.sql"
+    }, statements = {
+            "insert into product(id, name) values (1, 'Cool Beans'),(2, 'Java Beans');"
+    })
+    @Test
+    public void shouldUpdateProduct() {
+        ProductDetail product = productService.getProducts().get(0);
+        product.name = "New Hotness";
+
+        productService.update(product.id, product);
+
+        ProductDetail updatedProduct = productService.getById(product.id);
+        assertThat(updatedProduct.version).isEqualTo(1);
+        assertThat(updatedProduct.name).isEqualTo(product.name);
     }
 }
