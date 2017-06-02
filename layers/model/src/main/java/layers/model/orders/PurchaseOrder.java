@@ -25,16 +25,6 @@ public class PurchaseOrder {
         this.orderLines.forEach(orderLine -> orderLine.setPurchaseOrder(this));
     }
 
-    public PurchaseOrder(final long id, final List<OrderLine> orderLines) {
-        this.id = id;
-        this.orderLines = orderLines;
-        this.orderLines.forEach(orderLine -> orderLine.setPurchaseOrder(this));
-    }
-
-    public PurchaseOrder(final long id, final OrderLine...orderLines) {
-        this(id, Arrays.asList(orderLines));
-    }
-
     public long getId() {
         return id;
     }
