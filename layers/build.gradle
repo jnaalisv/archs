@@ -7,6 +7,7 @@ allprojects {
     apply from: "$rootDir/gradle/dependencies.gradle"
     repositories {
         jcenter()
+        mavenLocal()
     }
 }
 
@@ -27,7 +28,8 @@ dependencies {
             "org.springframework:spring-webmvc"
 
     testCompile "org.springframework.boot:spring-boot-starter-test",
-            "org.assertj:assertj-core:$assertJVersion"
+            "org.assertj:assertj-core:$assertJVersion",
+            "org.jnaalisv:spring-mockmvc-builder:1.4"
 }
 
 sourceSets {
