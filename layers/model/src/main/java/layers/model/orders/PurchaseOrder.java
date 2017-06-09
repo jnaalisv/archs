@@ -24,7 +24,7 @@ public class PurchaseOrder {
     private LocalDateTime createTime;
 
     @Version
-    private long version;
+    private Long version;
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderLine> orderLines = new ArrayList<>();
