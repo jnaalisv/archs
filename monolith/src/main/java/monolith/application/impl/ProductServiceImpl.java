@@ -31,7 +31,7 @@ class ProductServiceImpl implements ProductService {
         return productRepository
                 .getProducts()
                 .stream()
-                .map(product -> new ProductDetail(product.getId(), product.getName()))
+                .map(product -> new ProductDetail(product.getId(), product.getName(), product.getVersion()))
                 .collect(Collectors.toList());
     }
 
@@ -43,7 +43,7 @@ class ProductServiceImpl implements ProductService {
 
         productRepository.add(product);
 
-        return new ProductDetail(product.getId(), product.getName());
+        return new ProductDetail(product.getId(), product.getName(), product.getVersion());
     }
 
     @Override
@@ -51,7 +51,7 @@ class ProductServiceImpl implements ProductService {
     public ProductDetail findById(long productId) {
         return productRepository
                 .findById(productId)
-                .map(product -> new ProductDetail(product.getId(), product.getName()))
+                .map(product -> new ProductDetail(product.getId(), product.getName(), product.getVersion()))
                 .orElseThrow(() -> new RuntimeException("Product not found by id="+productId));
     }
 
@@ -59,10 +59,10 @@ class ProductServiceImpl implements ProductService {
     @Transactional
     public ProductDetail update(long productId, ProductDetail productDetail) {
 
-        Product product = new Product(productDetail.id, productDetail.name);
+        Product product = new Product(productDetail.id, productDetail.name, productDetail.version);
 
         productRepository.update(product);
 
-        return new ProductDetail(product.getId(), product.getName());
+        return new ProductDetail(product.getId(), product.getName(), product.getVersion());
     }
 }

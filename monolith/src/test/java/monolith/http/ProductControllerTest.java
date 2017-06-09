@@ -41,20 +41,20 @@ public class ProductControllerTest {
     @Test
     public void getProductsShouldReturnProducts() throws Exception {
         given(this.productService.getProducts())
-                .willReturn(Arrays.asList(new ProductDetail(1, "Cool Beans")));
+                .willReturn(Arrays.asList(new ProductDetail(1, "Cool Beans", 0L)));
 
         this.mvc.perform(
                 get("/products")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(content().string("[{\"id\":1,\"name\":\"Cool Beans\"}]"));
+                .andExpect(content().string("[{\"id\":1,\"name\":\"Cool Beans\",\"version\":0}]"));
     }
 
 
     @Test
     public void addingProductShouldReturnAddedProduct() throws Exception {
         given(this.productService.create(any()))
-                .willReturn(new ProductDetail(1L, "Cool Beans"));
+                .willReturn(new ProductDetail(1L, "Cool Beans", 0L));
 
         this.mvc.perform(
                 post("/products")
@@ -62,7 +62,7 @@ public class ProductControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isCreated())
-                .andExpect(content().string("{\"id\":1,\"name\":\"Cool Beans\"}"));
+                .andExpect(content().string("{\"id\":1,\"name\":\"Cool Beans\",\"version\":0}"));
     }
 
 }

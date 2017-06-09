@@ -28,17 +28,17 @@ public class ProductControllerIntegrationTest extends AbstractMockMvcTest {
         assertThat(productDetails.size()).isEqualTo(3);
         ProductDetail firstProduct = productDetails.get(0);
         assertThat(firstProduct.name).isEqualTo("Jelly Beans");
-        //assertThat(firstProduct.version).isEqualTo(0);
+        assertThat(firstProduct.version).isEqualTo(0);
         assertThat(firstProduct.id).isEqualTo(1);
 
         ProductDetail secondProduct = productDetails.get(1);
         assertThat(secondProduct.name).isEqualTo("Robusta");
-        //assertThat(secondProduct.version).isEqualTo(0);
+        assertThat(secondProduct.version).isEqualTo(0);
         assertThat(secondProduct.id).isEqualTo(2);
 
         ProductDetail thirdProduct = productDetails.get(2);
         assertThat(thirdProduct.name).isEqualTo("Arabica");
-        //assertThat(thirdProduct.version).isEqualTo(0);
+        assertThat(thirdProduct.version).isEqualTo(0);
         assertThat(thirdProduct.id).isEqualTo(3);
     }
 
@@ -61,7 +61,7 @@ public class ProductControllerIntegrationTest extends AbstractMockMvcTest {
         // then
         assertThat(createdProduct.id).isNotZero();
         assertThat(createdProduct.name).isEqualTo(newProduct.name);
-        //assertThat(createdProduct.version).isEqualTo(0);
+        assertThat(createdProduct.version).isEqualTo(0);
 
         ProductDetail productFromHttpGet = httpGet("/products/"+createdProduct.id)
                 .acceptApplicationJson()
@@ -71,7 +71,7 @@ public class ProductControllerIntegrationTest extends AbstractMockMvcTest {
 
         assertThat(productFromHttpGet.id).isEqualTo(createdProduct.id);
         assertThat(productFromHttpGet.name).isEqualTo(createdProduct.name);
-        //assertThat(productFromHttpGet.version).isEqualTo(0);
+        assertThat(productFromHttpGet.version).isEqualTo(0);
     }
 
     @Sql({"classpath:clear-database.sql", "classpath:products.sql"})
@@ -79,7 +79,7 @@ public class ProductControllerIntegrationTest extends AbstractMockMvcTest {
     public void givenProductInDatabase_whenUpdatingProduct_thenVersionIncreased() throws Exception {
 
         // given
-        ProductDetail productDetail = new ProductDetail(1L, "Arabica Beans");
+        ProductDetail productDetail = new ProductDetail(1L, "Arabica Beans", 0L);
 
         // when
         ProductDetail updatedProduct = httpPut("/products/"+productDetail.id)
@@ -92,6 +92,6 @@ public class ProductControllerIntegrationTest extends AbstractMockMvcTest {
         // then
         assertThat(updatedProduct.id).isEqualTo(productDetail.id);
         assertThat(updatedProduct.name).isEqualTo(productDetail.name);
-        //assertThat(updatedProduct.version).isEqualTo(productDetail.version+1);
+        assertThat(updatedProduct.version).isEqualTo(productDetail.version+1);
     }
 }

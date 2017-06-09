@@ -3,6 +3,7 @@ package monolith.model.products;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 @Entity
 public class Product {
@@ -12,6 +13,9 @@ public class Product {
     private long id;
 
     private String name;
+
+    @Version
+    private Long version;
 
     public Product(long id, String name) {
         this.id = id;
@@ -23,7 +27,12 @@ public class Product {
         this.name = name;
     }
 
-    public Product() {}
+    public Product() { /* hibernate */}
+
+    public Product(long id, String name, Long version) {
+        this(id, name);
+        this.version = version;
+    }
 
     public String getName() {
         return name;
@@ -31,5 +40,9 @@ public class Product {
 
     public long getId() {
         return id;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 }
