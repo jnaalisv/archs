@@ -6,5 +6,9 @@ public interface ProductService {
 
     List<ProductDetail> getProducts();
 
-    void add(ProductDetail product);
+    ProductDetail create(ProductDetail product);
+
+    ProductDetail findById(long productId);
+
+    ProductDetail update(long productId, ProductDetail productDetail);
 }

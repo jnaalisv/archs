@@ -24,7 +24,7 @@ public class ProductServiceIntegrationTest {
     public void shouldAddProduct() {
         ProductDetail productDetail = new ProductDetail(0, "Cool Beans");
 
-        productService.add(productDetail);
+        productService.create(productDetail);
     }
 
     @Sql({"classpath:clear-database.sql", "classpath:products.sql"})

@@ -1,6 +1,7 @@
 package monolith.model.products;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository {
 
@@ -8,4 +9,7 @@ public interface ProductRepository {
 
     void add(Product product);
 
+    Optional<Product> findById(long productId);
+
+    void update(Product product);
 }

@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -52,13 +53,16 @@ public class ProductControllerTest {
 
     @Test
     public void addingProductShouldReturnAddedProduct() throws Exception {
+        given(this.productService.create(any()))
+                .willReturn(new ProductDetail(1L, "Cool Beans"));
+
         this.mvc.perform(
                 post("/products")
                         .content("{\"name\":\"Cool Beans\"}")
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isCreated())
-                .andExpect(content().string("{\"id\":0,\"name\":\"Cool Beans\"}"));
+                .andExpect(content().string("{\"id\":1,\"name\":\"Cool Beans\"}"));
     }
 
 }

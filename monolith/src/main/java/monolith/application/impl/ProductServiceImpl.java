@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,9 +24,10 @@ class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<ProductDetail> getProducts() {
-        logger.debug("getProducts");
+
         return productRepository
                 .getProducts()
                 .stream()
@@ -33,12 +35,34 @@ class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     @Transactional
-    public void add(ProductDetail productDetail) {
-        logger.debug("add");
+    public ProductDetail create(ProductDetail productDetail) {
+
+        Product product = new Product(productDetail.name);
+
+        productRepository.add(product);
+
+        return new ProductDetail(product.getId(), product.getName());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ProductDetail findById(long productId) {
+        return productRepository
+                .findById(productId)
+                .map(product -> new ProductDetail(product.getId(), product.getName()))
+                .orElseThrow(() -> new RuntimeException("Product not found by id="+productId));
+    }
+
+    @Override
+    @Transactional
+    public ProductDetail update(long productId, ProductDetail productDetail) {
 
         Product product = new Product(productDetail.id, productDetail.name);
 
-        productRepository.add(product);
+        productRepository.update(product);
+
+        return new ProductDetail(product.getId(), product.getName());
     }
 }

@@ -1,5 +1,6 @@
 package monolith.persistence.hibernate;
 
+import monolith.application.ProductDetail;
 import monolith.model.products.Product;
 import monolith.model.products.ProductRepository;
 import org.hibernate.Session;
@@ -7,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 class HibernateProductRepository implements ProductRepository {
@@ -31,5 +33,17 @@ class HibernateProductRepository implements ProductRepository {
     @Override
     public void add(Product product) {
         getCurrentSession().save(product);
+    }
+
+    @Override
+    public Optional<Product> findById(long productId) {
+        return getCurrentSession()
+                .byId(Product.class)
+                .loadOptional(productId);
+    }
+
+    @Override
+    public void update(Product product) {
+        getCurrentSession().merge(product);
     }
 }
