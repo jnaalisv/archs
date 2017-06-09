@@ -5,6 +5,7 @@ plugins {
 }
 
 repositories {
+    mavenLocal()
     jcenter()
 }
 
@@ -29,7 +30,10 @@ dependencies {
             "org.flywaydb:flyway-core:$flywayVersion"
     )
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile(
+            "org.springframework.boot:spring-boot-starter-test",
+            "org.jnaalisv:spring-mockmvc-builder:1.5"
+    )
 }
 
 wrapper {
