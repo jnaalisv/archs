@@ -1,7 +1,5 @@
 package monolith.application;
 
-import monolith.application.ProductDetail;
-import monolith.application.ProductService;
 import monolith.http.MonolithHttpApiApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -34,10 +34,11 @@ class ProductServiceImpl implements ProductService {
     }
 
     @Transactional
-    public void add(ProductDetail product) {
+    public void add(ProductDetail productDetail) {
         logger.debug("add");
-        productRepository.add(
-                new Product(product.id, product.name)
-        );
+
+        Product product = new Product(productDetail.id, productDetail.name);
+
+        productRepository.add(product);
     }
 }
