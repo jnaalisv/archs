@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '1.5.3.RELEASE'
+    id 'org.springframework.boot' version '1.5.4.RELEASE'
     id 'java'
     id 'org.flywaydb.flyway' version '4.2.0'
 }
@@ -10,7 +10,7 @@ repositories {
 
 ext['hibernate.version'] = "5.2.10.Final"
 ext['hikaricp.version'] = "2.6.2"
-ext['groovyVersion'] = "2.4.9"
+ext['groovyVersion'] = "2.4.11"
 ext['postgreSqlVersion'] = "42.1.1"
 ext['flywayVersion'] = "4.2.0"
 
