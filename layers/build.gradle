@@ -29,7 +29,7 @@ dependencies {
 
     testCompile "org.springframework.boot:spring-boot-starter-test",
             "org.assertj:assertj-core:$assertJVersion",
-            "org.jnaalisv:spring-mockmvc-builder:1.4"
+            "org.jnaalisv:spring-mockmvc-builder:1.5"
 }
 
 sourceSets {
