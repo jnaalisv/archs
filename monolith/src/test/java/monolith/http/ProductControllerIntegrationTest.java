@@ -103,4 +103,23 @@ public class ProductControllerIntegrationTest extends AbstractMockMvcTest {
                 .acceptApplicationJson()
                 .expect404();
     }
+
+    @Sql({"classpath:clear-database.sql", "classpath:three-products.sql"})
+    @Test
+    public void givenProductsInDatabase_whenUpdatingWithOldVersion_thenConflict() {
+
+        ProductDetail productDetail = new ProductDetail(1L, "Arabica Beans", 0L);
+
+        httpPut("/products/"+productDetail.id)
+                .acceptApplicationJson()
+                .contentTypeApplicationJson()
+                .content(productDetail)
+                .expect200();
+
+        httpPut("/products/"+productDetail.id)
+                .acceptApplicationJson()
+                .contentTypeApplicationJson()
+                .content(productDetail)
+                .expect409();
+    }
 }
