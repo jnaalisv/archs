@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,10 +48,11 @@ class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public ProductDetail findById(long productId) {
+
         return productRepository
                 .findById(productId)
                 .map(product -> new ProductDetail(product.getId(), product.getName(), product.getVersion()))
-                .orElseThrow(() -> new RuntimeException("Product not found by id="+productId));
+                .orElseThrow(() ->new NotFoundException(Product.class, "id="+productId));
     }
 
     @Override

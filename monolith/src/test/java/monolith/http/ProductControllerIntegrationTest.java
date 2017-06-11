@@ -94,4 +94,13 @@ public class ProductControllerIntegrationTest extends AbstractMockMvcTest {
         assertThat(updatedProduct.name).isEqualTo(productDetail.name);
         assertThat(updatedProduct.version).isEqualTo(productDetail.version+1);
     }
+
+    @Sql({"classpath:clear-database.sql", "classpath:three-products.sql"})
+    @Test
+    public void givenProductsInDatabase_whenAskingForNonExistingProduct_thenNotFound() {
+
+        httpGet("/products/89767")
+                .acceptApplicationJson()
+                .expect404();
+    }
 }
