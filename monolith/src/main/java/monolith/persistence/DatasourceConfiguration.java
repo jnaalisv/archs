@@ -5,21 +5,19 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@PropertySource("classpath:datasource.properties")
 public class DatasourceConfiguration {
 
-    @Value("${database.user}")
+    @Value("${datasource.username}")
     private String dbUser;
 
-    @Value("${database.password}")
+    @Value("${datasource.password}")
     private String dbPassword;
 
-    @Value("${database.name}")
+    @Value("${datasource.database_name}")
     private String dbName;
 
     @Bean(destroyMethod = "close")
