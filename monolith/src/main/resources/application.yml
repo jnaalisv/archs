@@ -1,0 +1,16 @@
+datasource:
+  username: monolith_user
+  password: monolith_user
+  database_name: monolith_db
+
+
+
+logging:
+  level:
+    org.postgresql.core: TRACE
+    com.zaxxer: DEBUG
+    net.ttddyy: INFO
+    org.springframework: INFO
+
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %logger{40}: %msg%n%ex{full, org.apache, java.lang, java.util, javax.servlet, com.sun.proxy, sun.reflect, org.springframework, org.hibernate, CGLIB}"
