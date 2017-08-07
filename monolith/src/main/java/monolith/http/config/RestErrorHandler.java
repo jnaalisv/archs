@@ -75,7 +75,7 @@ public final class RestErrorHandler extends ResponseEntityExceptionHandler {
                 .ofNullable(throwable.getCause())
                 .orElse(throwable);
 
-        logger.error(restRequest, cause.getClass().getSimpleName(), cause.getMessage());
+        logger.error(restRequest, cause);
     }
 
     private static String buildRequestString(HttpServletRequest httpRequest) {
@@ -84,7 +84,7 @@ public final class RestErrorHandler extends ResponseEntityExceptionHandler {
         errorMessageBuilder.append(httpRequest.getMethod());
         errorMessageBuilder.append(" ");
         errorMessageBuilder.append(httpRequest.getRequestURI());
-        errorMessageBuilder.append(" -> {}: {}");
+        errorMessageBuilder.append(" failed:");
         return errorMessageBuilder.toString();
     }
 
