@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '1.5.4.RELEASE'
+    id 'org.springframework.boot' version '1.5.9.RELEASE'
     id 'java'
 }
 
@@ -46,5 +46,5 @@ sourceSets {
 }
 
 wrapper {
-    gradleVersion = "4.0"
+    gradleVersion = "4.5"
 }
