@@ -25,18 +25,18 @@ ext {
     groovyVersion = "2.4.9"
 
     // Spring Framework dependency versions
-    springVersion = "4.3.8.RELEASE"
-    springBootVersion = "1.5.2.RELEASE"
+    springVersion = "4.3.12.RELEASE"
+    springBootVersion = "1.5.9.RELEASE"
 
     // Data access dependency versions
-    hibernateVersion = "5.2.10.Final"
-    hikaricpVersion = "2.6.1"
-    postgreSqlVersion = "42.0.0"
+    hibernateVersion = "5.2.12.Final"
+    hikaricpVersion = "2.7.6"
+    postgreSqlVersion = "42.2.1"
 
     // Test dependency versions
     h2Version = "1.4.193"
     junitVersion = "4.12"
-    assertJVersion = "3.5.2"
+    assertJVersion = "3.9.0"
 
     flywayVersion = "4.1.2"
 
@@ -54,5 +54,5 @@ ext['hikaricp.version'] = hikaricpVersion;
 ext['flyway.version'] = flywayVersion;
 
 wrapper {
-    gradleVersion = "3.5"
+    gradleVersion = "4.5"
 }
